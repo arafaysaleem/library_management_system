@@ -35,6 +35,22 @@ class BookDetailsScreen extends StatelessWidget {
           ),
         ),
       ),
+      bottomNavigationBar: Container(
+        color: Colors.white,
+        padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 8),
+        child: FlatButton(
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          onPressed: () {},
+          color: Colors.green[500],
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: Text(
+            "BORROW",
+            style: TextStyle(letterSpacing: 1.4,fontSize: 15,color: Colors.white),
+          ),
+        ),
+      ),
     );
   }
 
