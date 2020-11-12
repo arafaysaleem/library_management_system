@@ -51,7 +51,7 @@ class BookGenresScreen extends StatelessWidget {
             SizedBox(height: 10),
 
             //Book listings sheet
-            BookListingsSheet(controller: _controller,noOfGenres: genres.length,),
+            BookListingsSheet(controller: _controller,noOfGenres: genres.length),
           ],
         ),
       ),
