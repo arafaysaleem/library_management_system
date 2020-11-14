@@ -4,29 +4,17 @@ import '../../utils/enums/page_type_enum.dart';
 import '../../utils/helper.dart';
 
 class GenreBooksList extends StatelessWidget {
-  const GenreBooksList({
-    Key key,
-    @required this.controller,
-    @required this.noOfGenres,
-  }) : super(key: key);
-
-  final PageController controller;
-  final int noOfGenres;
 
   @override
   Widget build(BuildContext context) {
-    return PageView.builder(
-      controller: controller,
-      itemCount: noOfGenres,
-      itemBuilder: (ctx, i) => ListView.separated(
-        itemCount: 10,
-        separatorBuilder: (ctx, i) => Divider(
-          thickness: 1,
-          height: 36,
-        ),
-        itemBuilder: (ctx, i) => GenresBooksListItem(
-          i: i,
-        ),
+    return ListView.separated(
+      itemCount: 10,
+      separatorBuilder: (ctx, i) => Divider(
+        thickness: 1,
+        height: 36,
+      ),
+      itemBuilder: (ctx, i) => GenresBooksListItem(
+        i: i,
       ),
     );
   }

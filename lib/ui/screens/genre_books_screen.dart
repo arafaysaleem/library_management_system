@@ -2,23 +2,12 @@ import 'package:flutter/material.dart';
 
 import '../../utils/helper.dart';
 
+import '../widgets/common/bottom_nav_bar.dart';
 import '../widgets/book_listings_sheet.dart';
 import '../widgets/genres_list.dart';
 
-class BookGenresScreen extends StatelessWidget {
-  final PageController _controller=PageController();
-
-  //Temporary
-  final genres=[
-    'Popular',
-    'Art',
-    'Business',
-    'Entrepreneurship',
-    'Fantasy',
-    'Horror',
-    'Mystery',
-    'Fiction',
-  ];
+class GenreBooksScreen extends StatelessWidget {
+  final PageController _genreController = PageController();
 
   @override
   Widget build(BuildContext context) {
@@ -44,17 +33,19 @@ class BookGenresScreen extends StatelessWidget {
 
             //List of genres
             GenresList(
-              genres: genres,
-              controller: _controller,
+              genreController: _genreController,
             ),
 
             SizedBox(height: 10),
 
             //Book listings sheet
-            BookListingsSheet(controller: _controller,noOfGenres: genres.length),
+            BookListingsSheet(
+              genreController: _genreController,
+            ),
           ],
         ),
       ),
+      bottomNavigationBar: BottomNavBar(),
     );
   }
 }
