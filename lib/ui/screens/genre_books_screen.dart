@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../utils/helper.dart';
 
-import '../widgets/common/bottom_nav_bar.dart';
 import '../widgets/book_listings_sheet.dart';
 import '../widgets/genres_list.dart';
 
@@ -45,7 +44,6 @@ class GenreBooksScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavBar(),
     );
   }
 }

@@ -1,9 +1,27 @@
 import 'package:flutter/material.dart';
 
-class BottomNavBar extends StatelessWidget {
+import '../../../utils/enums/page_type_enum.dart';
+
+class BottomNavBar extends StatefulWidget {
+  final PageController pageController;
+
   const BottomNavBar({
     Key key,
+    @required this.pageController,
   }) : super(key: key);
+
+  @override
+  _BottomNavBarState createState() => _BottomNavBarState();
+}
+
+class _BottomNavBarState extends State<BottomNavBar> {
+  PageType _activePage;
+
+  @override
+  void initState() {
+    _activePage = PageType.COLLECTIONS;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,93 +33,87 @@ class BottomNavBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           //Icon 1
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              InkWell(
-                child: Icon(
-                  Icons.library_books_outlined,
-                  color: Theme.of(context).primaryColor.withOpacity(0.6),
-                  size: 26,
-                ),
-                onTap: () {},
-              ),
-              SizedBox(height: 5),
-              Text(
-                "Home",
-                style: TextStyle(
-                  color: Theme.of(context).primaryColor.withOpacity(0.6),
-                ),
-              ),
-            ],
+          buildBarItem(
+            icon: Icons.library_books_outlined,
+            label: "Home",
+            page: PageType.COLLECTIONS,
           ),
 
           //Icon 2
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              InkWell(
-                child: Icon(
-                  Icons.menu_book_outlined,
-                  color: Theme.of(context).primaryColor.withOpacity(1),
-                  size: 26,
-                ),
-                onTap: () {},
-              ),
-              SizedBox(height: 5),
-              Text(
-                "Library",
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  color: Theme.of(context).primaryColor.withOpacity(1),
-                ),
-              ),
-            ],
+          buildBarItem(
+            icon: Icons.menu_book_outlined,
+            label: "Library",
+            page: PageType.GENRES,
           ),
 
           //Icon 3
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              InkWell(
-                child: Icon(
-                  Icons.book_outlined,
-                  color: Theme.of(context).primaryColor.withOpacity(0.6),
-                  size: 26,
-                ),
-                onTap: () {},
-              ),
-              SizedBox(height: 5),
-              Text(
-                "Borrowed",
-                style: TextStyle(
-                  color: Theme.of(context).primaryColor.withOpacity(0.6),
-                ),
-              ),
-            ],
+          buildBarItem(
+            icon: Icons.book_outlined,
+            label: "Bookshelf",
+            page: PageType.BOOKSHELF,
           ),
 
           //Icon 4
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              InkWell(
-                child: Icon(
-                  Icons.person_outline,
-                  color: Theme.of(context).primaryColor.withOpacity(0.6),
-                  size: 26,
-                ),
-                onTap: () {},
-              ),
-              SizedBox(height: 5),
-              Text(
-                "Profile",
-                style: TextStyle(
-                  color: Theme.of(context).primaryColor.withOpacity(0.6),
-                ),
-              ),
-            ],
-          )
+          buildBarItem(
+            icon: Icons.person_outline,
+            label: "Profile",
+            page: PageType.PROFILE,
+          ),
+        ],
+      ),
+    );
+  }
+
+  int getPageNumber(PageType page) {
+    switch (page) {
+      case PageType.COLLECTIONS:
+        return 0;
+      case PageType.GENRES:
+        return 1;
+      case PageType.BOOKSHELF:
+        return 2;
+      case PageType.PROFILE:
+        return 3;
+      default:
+        return 0;
+    }
+  }
+
+  Widget buildBarItem({
+    @required IconData icon,
+    @required String label,
+    @required PageType page,
+  }) {
+    final bool active = _activePage == page;
+    return InkWell(
+      onTap: () {
+        if (_activePage != page) {
+          setState(() {
+            _activePage = page;
+          });
+          widget.pageController.animateToPage(
+            getPageNumber(page),
+            duration: Duration(milliseconds: 300),
+            curve: Curves.easeIn,
+          );
+        }
+      },
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            icon,
+            color: Theme.of(context).primaryColor.withOpacity(active ? 1 : 0.4),
+            size: 26,
+          ),
+          SizedBox(height: 5),
+          Text(
+            label,
+            style: TextStyle(
+              color:
+                  Theme.of(context).primaryColor.withOpacity(active ? 1 : 0.4),
+            ),
+          ),
         ],
       ),
     );

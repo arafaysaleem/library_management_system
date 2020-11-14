@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../utils/helper.dart';
 
-import '../../models/book.dart';
-
 class BookCollectionList extends StatelessWidget {
 
   //TODO: use this when Book class complete
