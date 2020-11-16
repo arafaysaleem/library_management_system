@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../utils/helper.dart';
+import '../../../utils/helper.dart';
 
 class BookCollectionList extends StatelessWidget {
 

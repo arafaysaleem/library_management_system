@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../utils/helper.dart';
+import '../../../utils/helper.dart';
 
 class TopAuthorsList extends StatelessWidget {
   //TODO: use this when Author complete

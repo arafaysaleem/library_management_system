@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../providers/genre_provider.dart';
+import '../../../providers/genre_provider.dart';
 
-import '../../utils/helper.dart';
+import '../../../utils/helper.dart';
 
 class GenresList extends StatelessWidget {
 

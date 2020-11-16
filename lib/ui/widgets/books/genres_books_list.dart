@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../utils/helper.dart';
+import '../../../utils/enums/page_type_enum.dart';
+import '../../../utils/helper.dart';
 
-import '../../utils/enums/page_type_enum.dart';
+class GenreBooksList extends StatelessWidget {
 
-
-class AuthorsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
@@ -14,15 +13,15 @@ class AuthorsList extends StatelessWidget {
         thickness: 1,
         height: 36,
       ),
-      itemBuilder: (ctx, i) => AuthorsListItem(
+      itemBuilder: (ctx, i) => GenresBooksListItem(
         i: i,
       ),
     );
   }
 }
 
-class AuthorsListItem extends StatelessWidget {
-  const AuthorsListItem({
+class GenresBooksListItem extends StatelessWidget {
+  const GenresBooksListItem({
     Key key,
     @required this.i,
   }) : super(key: key);
@@ -36,18 +35,18 @@ class AuthorsListItem extends StatelessWidget {
       onTap: () {
         Helper.navigateToPage(
             context: context,
-            page: PageType.AUTHOR,
+            page: PageType.BOOK,
             arguments: {
               "color": color,
-              "a_first_name": "Author F Name $i",
-              "a_last_name": "Author L Name $i",
-              "a_age": "Author age $i",
-              "a_country": "Author country $i",
-              "a_rating": i % 6,
-              "a_bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
-                  " ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco"
-                  " laboris nisi ut aliquip ex ea commodo consequat.Lorem ipsum dolor sit amet, consectetur "
-                  "adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+              "bk_title": "Book Title $i",
+              "bk_author": "Book Author $i",
+              "bk_rating": i % 6,
+              "published_date": "10/12/2020",
+              "bk_bio":
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+                      " ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco"
+                      " laboris nisi ut aliquip ex ea commodo consequat.Lorem ipsum dolor sit amet, consectetur "
+                      "adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
               "genres": ['Horror', 'Fantasy', 'Sci-Fi', 'Romance', 'Mystery']
             });
       },
@@ -61,7 +60,7 @@ class AuthorsListItem extends StatelessWidget {
               width: 110,
               decoration: BoxDecoration(
                 color: color,
-                shape: BoxShape.circle,
+                borderRadius: BorderRadius.circular(20),
               ),
             ),
 
@@ -71,9 +70,9 @@ class AuthorsListItem extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                //Author age
+                //Book author
                 Text(
-                  "Author age $i",
+                  "Book Author $i",
                   style: TextStyle(
                     color: Colors.grey[700],
                     fontSize: 14,
@@ -83,21 +82,21 @@ class AuthorsListItem extends StatelessWidget {
 
                 SizedBox(height: 10),
 
-                //Author name (F+L)
+                //Book Title
                 Text(
-                  "Author Name $i",
+                  "Book Title $i",
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 22,
                     fontWeight: FontWeight.w600,
+                    fontSize: 22,
                   ),
                 ),
 
                 SizedBox(height: 10),
 
-                //Author rating
+                //Book rating
                 Text(
-                  "Author Rating $i",
+                  "Book Rating $i",
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.black38,

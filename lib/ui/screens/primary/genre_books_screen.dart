@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../utils/helper.dart';
+import '../../../utils/helper.dart';
 
-import '../widgets/book_listings_sheet.dart';
-import '../widgets/genres_list.dart';
+import '../../widgets/collections/book_listings_sheet.dart';
+import '../../widgets/books/genres_list.dart';
 
 class GenreBooksScreen extends StatelessWidget {
   final PageController _genreController = PageController();

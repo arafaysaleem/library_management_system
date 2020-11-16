@@ -3,8 +3,6 @@ import 'package:provider/provider.dart';
 
 import '../../providers/bottom_nav_bar_provider.dart';
 
-import '../../utils/enums/page_type_enum.dart';
-
 import '../widgets/common/bottom_nav_bar.dart';
 
 class HomeScreen extends StatelessWidget {

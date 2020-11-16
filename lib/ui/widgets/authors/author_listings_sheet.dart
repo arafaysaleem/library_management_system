@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'common/search_textfield.dart';
+import '../common/search_textfield.dart';
 import 'authors_list.dart';
 
 class AuthorListingsSheet extends StatelessWidget {

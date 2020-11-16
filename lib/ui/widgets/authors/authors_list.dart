@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../utils/enums/page_type_enum.dart';
-import '../../utils/helper.dart';
+import '../../../utils/helper.dart';
 
-class GenreBooksList extends StatelessWidget {
+import '../../../utils/enums/page_type_enum.dart';
 
+
+class AuthorsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
@@ -13,15 +14,15 @@ class GenreBooksList extends StatelessWidget {
         thickness: 1,
         height: 36,
       ),
-      itemBuilder: (ctx, i) => GenresBooksListItem(
+      itemBuilder: (ctx, i) => AuthorsListItem(
         i: i,
       ),
     );
   }
 }
 
-class GenresBooksListItem extends StatelessWidget {
-  const GenresBooksListItem({
+class AuthorsListItem extends StatelessWidget {
+  const AuthorsListItem({
     Key key,
     @required this.i,
   }) : super(key: key);
@@ -35,18 +36,18 @@ class GenresBooksListItem extends StatelessWidget {
       onTap: () {
         Helper.navigateToPage(
             context: context,
-            page: PageType.BOOK,
+            page: PageType.AUTHOR,
             arguments: {
               "color": color,
-              "bk_title": "Book Title $i",
-              "bk_author": "Book Author $i",
-              "bk_rating": i % 6,
-              "published_date": "10/12/2020",
-              "bk_bio":
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
-                      " ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco"
-                      " laboris nisi ut aliquip ex ea commodo consequat.Lorem ipsum dolor sit amet, consectetur "
-                      "adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+              "a_first_name": "Author F Name $i",
+              "a_last_name": "Author L Name $i",
+              "a_age": "Author age $i",
+              "a_country": "Author country $i",
+              "a_rating": i % 6,
+              "a_bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+                  " ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco"
+                  " laboris nisi ut aliquip ex ea commodo consequat.Lorem ipsum dolor sit amet, consectetur "
+                  "adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
               "genres": ['Horror', 'Fantasy', 'Sci-Fi', 'Romance', 'Mystery']
             });
       },
@@ -60,7 +61,7 @@ class GenresBooksListItem extends StatelessWidget {
               width: 110,
               decoration: BoxDecoration(
                 color: color,
-                borderRadius: BorderRadius.circular(20),
+                shape: BoxShape.circle,
               ),
             ),
 
@@ -70,9 +71,9 @@ class GenresBooksListItem extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                //Book author
+                //Author age
                 Text(
-                  "Book Author $i",
+                  "Author age $i",
                   style: TextStyle(
                     color: Colors.grey[700],
                     fontSize: 14,
@@ -82,21 +83,21 @@ class GenresBooksListItem extends StatelessWidget {
 
                 SizedBox(height: 10),
 
-                //Book Title
+                //Author name (F+L)
                 Text(
-                  "Book Title $i",
+                  "Author Name $i",
                   style: TextStyle(
                     color: Colors.black,
-                    fontWeight: FontWeight.w600,
                     fontSize: 22,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
 
                 SizedBox(height: 10),
 
-                //Book rating
+                //Author rating
                 Text(
-                  "Book Rating $i",
+                  "Author Rating $i",
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.black38,

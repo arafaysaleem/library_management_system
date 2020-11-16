@@ -5,15 +5,15 @@ import 'package:provider/provider.dart';
 import '../../providers/genre_provider.dart';
 import '../../providers/bottom_nav_bar_provider.dart';
 
-import '../../ui/screens/home_screen.dart';
-import '../../ui/screens/book_collections_screen.dart';
-import '../../ui/screens/genre_books_screen.dart';
-import '../../ui/screens/authors_gallery_screen.dart';
-import '../../ui/screens/author_details_screen.dart';
-import '../../ui/screens/book_details_screen.dart';
-import '../../ui/screens/member_bookshelf_screen.dart';
-import '../../ui/screens/member_profile_screen.dart';
 import '../../ui/screens/login_screen.dart';
+import '../../ui/screens/home_screen.dart';
+import '../../ui/screens/primary/book_collections_screen.dart';
+import '../../ui/screens/primary/genre_books_screen.dart';
+import '../../ui/screens/primary/authors_gallery_screen.dart';
+import '../../ui/screens/primary/member_profile_screen.dart';
+import '../../ui/screens/primary/member_bookshelf_screen.dart';
+import '../../ui/screens/secondary/author_details_screen.dart';
+import '../../ui/screens/secondary/book_details_screen.dart';
 
 enum PageType {
   HOME,

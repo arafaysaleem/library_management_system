@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../utils/helper.dart';
+import '../../../utils/helper.dart';
 
-import '../widgets/author_listings_sheet.dart';
+import '../../widgets/authors/author_listings_sheet.dart';
 
 class AuthorsGalleryScreen extends StatelessWidget {
   @override

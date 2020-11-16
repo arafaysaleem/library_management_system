@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../utils/helper.dart';
+import '../../../utils/helper.dart';
 
-import '../widgets/book_collections_sheet.dart';
-import '../widgets/common/search_textfield.dart';
-import '../widgets/top_authors_list.dart';
+import '../../widgets/collections/book_collections_sheet.dart';
+import '../../widgets/common/search_textfield.dart';
+import '../../widgets/collections/top_authors_list.dart';
 
 class BookCollectionsScreen extends StatelessWidget {
 

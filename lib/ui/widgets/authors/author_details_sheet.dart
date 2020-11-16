@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 
-import '../../utils/helper.dart';
+import '../../../utils/helper.dart';
 
-class BookDetailsSheet extends StatelessWidget {
+class AuthorDetailsSheet extends StatelessWidget {
   final Color color;
-  final String bookTitle;
-  final String bookAuthor;
-  final String bookPublishedDate;
-  final String bookBio;
-  final int bookRating;
+  final String authorName;
+  final String authorAge;
+  final String authorCountry;
+  final String authorBio;
+  final int authorRating;
   final List<String> genres;
 
-  const BookDetailsSheet({
+  const AuthorDetailsSheet({
     Key key,
     @required this.color,
-    @required this.bookTitle,
-    @required this.bookAuthor,
-    @required this.bookPublishedDate,
-    @required this.bookBio,
-    @required this.bookRating,
+    @required this.authorName,
+    @required this.authorAge,
+    @required this.authorCountry,
+    @required this.authorBio,
+    @required this.authorRating,
     @required this.genres,
   }) : super(key: key);
 
@@ -38,11 +38,11 @@ class BookDetailsSheet extends StatelessWidget {
                 topRight: Radius.circular(25),
               ),
             ),
-            child: buildBookDetails(context),
+            child: buildAuthorDetails(context),
           ),
         ),
 
-        //Book image
+        //Author image
         Align(
           alignment: Alignment.topCenter,
           child: Container(
@@ -58,15 +58,15 @@ class BookDetailsSheet extends StatelessWidget {
     );
   }
 
-  Column buildBookDetails(BuildContext context) {
+  Column buildAuthorDetails(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         SizedBox(height: 175),
 
-        //Book Title
+        //Author Name
         Text(
-          bookTitle,
+          authorName,
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.w600,
@@ -76,9 +76,9 @@ class BookDetailsSheet extends StatelessWidget {
 
         SizedBox(height: 5),
 
-        //Book author
+        //Author age
         Text(
-          bookAuthor,
+          authorAge,
           style: TextStyle(
             color: Colors.grey[700],
             fontSize: 16,
@@ -88,14 +88,19 @@ class BookDetailsSheet extends StatelessWidget {
 
         SizedBox(height: 10),
 
-        //Published date
+        //Author country
         Text(
-          "Published at $bookPublishedDate",
+          authorCountry,
+          style: TextStyle(
+            color: Colors.grey[700],
+            fontSize: 16,
+            fontWeight: FontWeight.w400,
+          ),
         ),
 
         SizedBox(height: 10),
 
-        //Book ratings
+        //Author ratings
         buildRatings(),
 
         SizedBox(height: 15),
@@ -105,7 +110,7 @@ class BookDetailsSheet extends StatelessWidget {
         SizedBox(height: 15),
 
         Text(
-          bookBio,
+          authorBio,
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 15,
@@ -154,7 +159,7 @@ class BookDetailsSheet extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         //Rating stars
-        for (int i = 0; i < bookRating; i++)
+        for (int i = 0; i < authorRating; i++)
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 3),
             child: Icon(
@@ -164,7 +169,7 @@ class BookDetailsSheet extends StatelessWidget {
           ),
 
         //Empty stars
-        for (int i = bookRating; i < 5; i++)
+        for (int i = authorRating; i < 5; i++)
           Icon(
             Icons.star,
             color: Colors.grey[300],

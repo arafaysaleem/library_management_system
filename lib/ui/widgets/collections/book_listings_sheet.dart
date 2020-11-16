@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../providers/genre_provider.dart';
+import '../../../providers/genre_provider.dart';
 
-import 'common/search_textfield.dart';
-import 'genres_books_list.dart';
+import '../common/search_textfield.dart';
+import '../books/genres_books_list.dart';
 
 class BookListingsSheet extends StatelessWidget {
   final PageController genreController;
