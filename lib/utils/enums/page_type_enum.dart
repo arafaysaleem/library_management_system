@@ -3,17 +3,29 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/genre_provider.dart';
+import '../../providers/bottom_nav_bar_provider.dart';
 
 import '../../ui/screens/home_screen.dart';
 import '../../ui/screens/book_collections_screen.dart';
 import '../../ui/screens/genre_books_screen.dart';
+import '../../ui/screens/authors_gallery_screen.dart';
 import '../../ui/screens/author_details_screen.dart';
 import '../../ui/screens/book_details_screen.dart';
 import '../../ui/screens/member_bookshelf_screen.dart';
 import '../../ui/screens/member_profile_screen.dart';
 import '../../ui/screens/login_screen.dart';
 
-enum PageType { HOME, COLLECTIONS, GENRES, AUTHOR, BOOK, BOOKSHELF, PROFILE, LOGIN }
+enum PageType {
+  HOME,
+  COLLECTIONS,
+  GENRES,
+  AUTHOR,
+  BOOK,
+  BOOKSHELF,
+  AUTHORGALLERY,
+  PROFILE,
+  LOGIN
+}
 
 extension ActivePage on PageType {
   String get name => describeEnum(this);
@@ -21,8 +33,12 @@ extension ActivePage on PageType {
   Widget getRoute() {
     switch (this) {
       case PageType.HOME:
-        return HomeScreen();
-      case PageType.COLLECTIONS: return BookCollectionsScreen();
+        return ChangeNotifierProvider(
+          create: (_) => BottomNavBarProvider(),
+          child: HomeScreen(),
+        );
+      case PageType.COLLECTIONS:
+        return BookCollectionsScreen();
       case PageType.GENRES:
         return ChangeNotifierProvider(
           create: (_) => GenreProvider(),
@@ -30,6 +46,8 @@ extension ActivePage on PageType {
         );
       case PageType.AUTHOR:
         return AuthorDetailsScreen();
+      case PageType.AUTHORGALLERY:
+        return AuthorsGalleryScreen();
       case PageType.BOOK:
         return BookDetailsScreen();
       case PageType.BOOKSHELF:

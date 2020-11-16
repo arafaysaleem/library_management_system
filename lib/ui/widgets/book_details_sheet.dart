@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../../utils/helper.dart';
 
-class BookDetailsSheet extends StatelessWidget {
+class AuthorDetailsSheet extends StatelessWidget {
   final Map<String, dynamic> bookDetails;
 
-  const BookDetailsSheet({Key key, @required this.bookDetails})
+  const AuthorDetailsSheet({Key key, @required this.bookDetails})
       : super(key: key);
 
   @override

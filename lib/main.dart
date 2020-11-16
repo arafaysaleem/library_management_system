@@ -51,6 +51,7 @@ class MyApp extends StatelessWidget {
         PageType.COLLECTIONS.name: (_) => PageType.COLLECTIONS.getRoute(),
         PageType.GENRES.name: (_) => PageType.GENRES.getRoute(),
         PageType.AUTHOR.name: (_) => PageType.AUTHOR.getRoute(),
+        PageType.AUTHORGALLERY.name: (_) => PageType.AUTHORGALLERY.getRoute(),
         PageType.BOOK.name: (_) => PageType.BOOK.getRoute(),
         PageType.BOOKSHELF.name: (_) => PageType.BOOKSHELF.getRoute(),
         PageType.PROFILE.name: (_) => PageType.PROFILE.getRoute(),

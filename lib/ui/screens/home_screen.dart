@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../providers/bottom_nav_bar_provider.dart';
 
 import '../../utils/enums/page_type_enum.dart';
 
@@ -9,15 +12,13 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bottomBarProvider = Provider.of<BottomNavBarProvider>(context,listen: false);
     return Scaffold(
-      body: PageView(
+      body: PageView.builder(
         controller: _pageController,
-        children: [
-          PageType.COLLECTIONS.getRoute(),
-          PageType.GENRES.getRoute(),
-          PageType.BOOKSHELF.getRoute(),
-          PageType.PROFILE.getRoute(),
-        ],
+        onPageChanged: bottomBarProvider.setActivePageIndex,
+        itemCount: bottomBarProvider.pages.length,
+        itemBuilder: (ctx,i) => bottomBarProvider.activePageRoute,
       ),
       bottomNavigationBar: BottomNavBar(pageController: _pageController),
     );

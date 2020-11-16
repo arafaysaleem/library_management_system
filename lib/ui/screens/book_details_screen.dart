@@ -27,7 +27,7 @@ class BookDetailsScreen extends StatelessWidget {
               // Book Details Sheet
               SizedBox(
                 height: MediaQuery.of(context).size.height,
-                child: BookDetailsSheet(
+                child: AuthorDetailsSheet(
                   bookDetails: bookDetails,
                 ),
               ),
