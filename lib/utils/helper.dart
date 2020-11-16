@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import 'enums/page_type_enum.dart';
 
@@ -7,5 +8,13 @@ class Helper{
 
   static navigateToPage({@required BuildContext context, @required PageType page,Object arguments}){
     Navigator.of(context).pushNamed(page.name,arguments: arguments);
+  }
+
+  static String dateSerializer(DateTime date){
+    return DateFormat('dd-MM-YYYY').format(date);
+  }
+
+  static DateTime dateDeserializer(String iso8601date){
+    return DateTime.tryParse(dateSerializer(DateTime.tryParse(iso8601date)));
   }
 }
