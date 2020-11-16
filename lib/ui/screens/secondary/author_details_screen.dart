@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 
-import '../../utils/helper.dart';
+import '../../../utils/helper.dart';
 
-import '../widgets/book_details_sheet.dart';
+import '../../widgets/common/bottom_button_bar.dart';
+import '../../widgets/authors/author_details_sheet.dart';
 
-class BookDetailsScreen extends StatelessWidget {
-  //Use this when BookDetails class is ready
-  //final BookDetails _bookDetails;
+class AuthorDetailsScreen extends StatelessWidget {
+  //Use this when AuthorDetails class is ready
+  //final AuthorDetails _authorDetails;
 
   @override
   Widget build(BuildContext context) {
-    final Map<String, dynamic> bookDetails =
+    final Map<String, dynamic> authorDetails =
         ModalRoute.of(context).settings.arguments;
     return Scaffold(
       body: SafeArea(
@@ -27,35 +28,24 @@ class BookDetailsScreen extends StatelessWidget {
               // Book Details Sheet
               SizedBox(
                 height: MediaQuery.of(context).size.height,
-                child: BookDetailsSheet(
-                  bookTitle: bookDetails["bk_title"],
-                  bookAuthor: bookDetails["bk_author"],
-                  bookBio: bookDetails["bk_bio"],
-                  bookPublishedDate: bookDetails["published_date"],
-                  bookRating: bookDetails["bk_rating"],
-                  color: bookDetails["color"],
-                  genres: bookDetails["genres"],
+                child: AuthorDetailsSheet(
+                  color: authorDetails["color"],
+                  authorName:
+                      "${authorDetails["a_first_name"]} ${authorDetails["a_last_name"]}",
+                  authorAge: authorDetails["a_age"],
+                  authorCountry: authorDetails["a_country"],
+                  authorBio: authorDetails["a_bio"],
+                  authorRating: authorDetails["a_rating"],
+                  genres: authorDetails['genres'],
                 ),
               ),
             ],
           ),
         ),
       ),
-      bottomNavigationBar: Container(
-        color: Colors.white,
-        padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 8),
-        child: FlatButton(
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          onPressed: () {},
-          color: Colors.green[500],
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-          ),
-          child: Text(
-            "BORROW",
-            style: TextStyle(letterSpacing: 1.4,fontSize: 15,color: Colors.white),
-          ),
-        ),
+      bottomNavigationBar: BottomButtonBar(
+        label: "View Books",
+        onPressed: () {},
       ),
     );
   }
@@ -82,7 +72,7 @@ class BookDetailsScreen extends StatelessWidget {
           //Page Title
           Center(
             child: Text(
-              "Book Details",
+              "Author Details",
               style: Theme.of(context).textTheme.headline2,
             ),
           ),
