@@ -12,11 +12,10 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final bottomBarProvider = Provider.of<BottomNavBarProvider>(context,listen: false);
     return Scaffold(
-      body: PageView.builder(
+      body: PageView(
         controller: _pageController,
         onPageChanged: bottomBarProvider.setActivePageIndex,
-        itemCount: bottomBarProvider.pages.length,
-        itemBuilder: (ctx,i) => bottomBarProvider.activePageRoute,
+        children: bottomBarProvider.pageRoutes,
       ),
       bottomNavigationBar: BottomNavBar(pageController: _pageController),
     );

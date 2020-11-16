@@ -13,9 +13,11 @@ class BottomNavBarProvider with ChangeNotifier{
     PageType.PROFILE,
   ];
 
+  PageType _activePage = PageType.COLLECTIONS;
+
   UnmodifiableListView<PageType> get pages => UnmodifiableListView(_pages);
 
-  PageType _activePage = PageType.COLLECTIONS;
+  List<Widget> get pageRoutes => _pages.map((PageType page) => page.getRoute()).toList();
 
   PageType get activePage => _activePage;
 
@@ -24,7 +26,6 @@ class BottomNavBarProvider with ChangeNotifier{
   int getPageNumber(PageType page) => _pages.indexOf(page);
 
   bool isActivePage(PageType page) => _activePage == page;
-
 
   setActivePage(PageType newPage) {
     _activePage = newPage;
