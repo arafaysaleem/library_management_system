@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 
+import '../utils/helper.dart';
+
 class BookReview {
   final String _text;
   final int _rating;
@@ -43,4 +45,30 @@ class BookReview {
   int get rating => _rating;
 
   String get text => _text;
+
+  factory BookReview.fromJson(Map<String, dynamic> json) {
+    return new BookReview(
+      text: json['text'] as String,
+      rating: json['rating'] as int,
+      date: Helper.dateDeserializer(json['date']),
+      bookId: json['bookId'] as int,
+      mId: json['mId'] as int,
+      mFirstName: json['mFirstName'] as String,
+      mLastName: json['mLastName'] as String,
+      mImageUrl: json['mImageUrl'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    Map<String,dynamic> data;
+    data['text'] = _text;
+    data['rating'] = _rating;
+    data['date'] = Helper.dateSerializer(_date);
+    data['bookId'] = _bookId;
+    data['mId'] = _mId;
+    data['mFirstName'] = _mFirstName;
+    data['mLastName'] = _mLastName;
+    data['mImageUrl'] = _mImageUrl;
+    return data;
+  }
 }
