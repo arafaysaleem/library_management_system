@@ -27,8 +27,14 @@ class BookDetailsScreen extends StatelessWidget {
               // Book Details Sheet
               SizedBox(
                 height: MediaQuery.of(context).size.height,
-                child: AuthorDetailsSheet(
-                  bookDetails: bookDetails,
+                child: BookDetailsSheet(
+                  bookTitle: bookDetails["bk_title"],
+                  bookAuthor: bookDetails["bk_author"],
+                  bookBio: bookDetails["bk_bio"],
+                  bookPublishedDate: bookDetails["published_date"],
+                  bookRating: bookDetails["bk_rating"],
+                  color: bookDetails["color"],
+                  genres: bookDetails["genres"],
                 ),
               ),
             ],
