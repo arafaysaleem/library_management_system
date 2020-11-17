@@ -29,7 +29,7 @@ class ApiService {
   }) async* {
     final String url = getUrl(endPoint, id);
 
-    //Entire map pf response
+    //Entire map of response
     final data =  await _httpService.get(url);
 
     //Items of table as json
@@ -37,5 +37,19 @@ class ApiService {
 
     //Streaming the deserialized objects
     yield items.map((dataMap) => builder(dataMap)).toList();
+  }
+
+  Stream<T> documentStream<T>({
+    @required EndPoint endPoint,
+    @required String id,
+    @required T Function(Map<String, dynamic> data) builder,
+  }) async* {
+    final String url = getUrl(endPoint, id);
+
+    //Table item map
+    final data =  await _httpService.get(url);
+
+    //Streaming the deserialized objects
+    yield builder(data);
   }
 }

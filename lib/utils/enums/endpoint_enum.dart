@@ -24,16 +24,16 @@ enum EndPoint {
 extension GetEndPointPath on EndPoint {
   String get name => describeEnum(this);
 
-  String getPath({String id}) {
+  String getPath({@required String id}) {
     switch (this) {
       case EndPoint.BOOKS:
-        return "books/";
+        return "books/$id";
       case EndPoint.AUTHORS:
-        return "authors/";
+        return "authors/$id";
       case EndPoint.MEMBERS:
-        return "members/";
+        return "members/$id";
       case EndPoint.GENRES:
-        return "genres/";
+        return "genres/$id";
       case EndPoint.GENRE_AUTHORS:
         return "pkg/author_genres/authors/$id";
       case EndPoint.GENRE_BOOKS:

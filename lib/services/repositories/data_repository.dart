@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 import '../networking/api_service.dart';
 
 import '../../utils/enums/endpoint_enum.dart';
@@ -44,123 +46,116 @@ class DataRepository implements IDataRepository {
     );
   }
 
-  @override
-  Future<Author> getAuthor(int id) async {
-    final List<dynamic> items =
-        await _apiService.getEndPointData(EndPoint.AUTHORS, id: id.toString());
-    return Author.fromJson(items[0]);
+  Stream<Author> authorStream({@required int id}) {
+    return _apiService.documentStream(
+      endPoint: EndPoint.AUTHORS,
+      id: id.toString(),
+      builder: (data) => Author.fromJson(data),
+    );
   }
 
-  @override
-  Future<Book> getBook(int id) async {
-    final List<dynamic> items =
-        await _apiService.getEndPointData(EndPoint.BOOKS, id: id.toString());
-    return Book.fromJson(items[0]);
+  Stream<Book> bookStream({@required int id}) {
+    return _apiService.documentStream(
+      endPoint: EndPoint.BOOKS,
+      id: id.toString(),
+      builder: (data) => Book.fromJson(data),
+    );
   }
 
-  @override
-  Future<Member> getMember(int id) async {
-    final List<dynamic> items =
-        await _apiService.getEndPointData(EndPoint.MEMBERS, id: id.toString());
-    return Member.fromJson(items[0]);
+  Stream<Member> memberStream({@required int id}) {
+    return _apiService.documentStream(
+      endPoint: EndPoint.MEMBERS,
+      id: id.toString(),
+      builder: (data) => Member.fromJson(data),
+    );
   }
 
   // This fetches a list of ids which are used in the provider to
   // look for relevant object instances. This provides type safety.
   // Alternate: Can also return a Map of provided details and use
   // it directly in UI.
-  @override
-  Future<List<int>> getAuthorIdsByGenre(int id) async {
-    final List<dynamic> items =
-        await _apiService.getEndPointData(EndPoint.GENRE_AUTHORS, id: id.toString());
-    List<int> authorIds;
-    items.forEach((json) => authorIds.add(json["a_id"]));
-    return authorIds;
+
+  Stream<List<int>> genreAuthorsStream({@required int id}) {
+    return _apiService.collectionStream<int>(
+      endPoint: EndPoint.GENRE_AUTHORS,
+      id: id.toString(),
+      builder: (data) => data["a_id"],
+    );
   }
 
-  @override
-  Future<List<int>> getBookIdsByGenre(int id) async {
-    final List<dynamic> items =
-        await _apiService.getEndPointData(EndPoint.GENRE_BOOKS, id: id.toString());
-    List<int> bookIds;
-    items.forEach((json) => bookIds.add(json["bk_id"]));
-    return bookIds;
+  Stream<List<int>> genreBooksStream({@required int id}) {
+    return _apiService.collectionStream<int>(
+      endPoint: EndPoint.GENRE_BOOKS,
+      id: id.toString(),
+      builder: (data) => data["bk_id"],
+    );
   }
 
-  @override
-  Future<List<int>> getMemberIdsByGenre(int id) async {
-    final List<dynamic> items =
-        await _apiService.getEndPointData(EndPoint.GENRE_MEMBERS, id: id.toString());
-    List<int> memberIds;
-    items.forEach((json) => memberIds.add(json["m_id"]));
-    return memberIds;
+  Stream<List<int>> genreMembersStream({@required int id}) {
+    return _apiService.collectionStream<int>(
+      endPoint: EndPoint.GENRE_MEMBERS,
+      id: id.toString(),
+      builder: (data) => data["m_id"],
+    );
   }
 
   /// Returns a list of genre Ids which are used in provider to
   /// search and retrieve a list of Genre objects.
   /// Alternate: Can also return a Map or a list of genre names
-  @override
-  Future<List<int>> getAuthorGenres(int id) async {
-    final List<dynamic> items =
-        await _apiService.getEndPointData(EndPoint.AUTHOR_GENRES, id: id.toString());
-    List<int> genreIds;
-    items.forEach((json) => genreIds.add(json["g_id"]));
-    return genreIds;
+
+  Stream<List<int>> authorGenresStream({@required int id}) {
+    return _apiService.collectionStream<int>(
+      endPoint: EndPoint.AUTHOR_GENRES,
+      id: id.toString(),
+      builder: (data) => data["g_id"],
+    );
   }
 
-  @override
-  Future<List<int>> getBookGenres(int id) async {
-    final List<dynamic> items =
-        await _apiService.getEndPointData(EndPoint.BOOK_GENRES, id: id.toString());
-    List<int> genreIds;
-    items.forEach((json) => genreIds.add(json["g_id"]));
-    return genreIds;
+  Stream<List<int>> bookGenresStream({@required int id}) {
+    return _apiService.collectionStream<int>(
+      endPoint: EndPoint.BOOK_GENRES,
+      id: id.toString(),
+      builder: (data) => data["g_id"],
+    );
   }
 
-  @override
-  Future<List<int>> getMemberGenres(int id) async {
-    final List<dynamic> items =
-        await _apiService.getEndPointData(EndPoint.MEMBER_PREFERENCES, id: id.toString());
-    List<int> genreIds;
-    items.forEach((json) => genreIds.add(json["g_id"]));
-    return genreIds;
+  Stream<List<int>> memberGenresStream({@required int id}) {
+    return _apiService.collectionStream<int>(
+      endPoint: EndPoint.MEMBER_PREFERENCES,
+      id: id.toString(),
+      builder: (data) => data["g_id"],
+    );
   }
 
-  @override
-  Future<List<AuthorReview>> getAuthorReviews(int id) async {
-    final List<dynamic> items =
-        await _apiService.getEndPointData(EndPoint.AUTHOR_REVIEWS, id: id.toString());
-    List<AuthorReview> authorReviews;
-    items.forEach((json) => authorReviews.add(AuthorReview.fromJson(json)));
-    return authorReviews;
+  Stream<List<AuthorReview>> authorReviewsStream({@required int id}) {
+    return _apiService.collectionStream<AuthorReview>(
+      endPoint: EndPoint.AUTHOR_REVIEWS,
+      id: id.toString(),
+      builder: (data) => AuthorReview.fromJson(data),
+    );
   }
 
-  @override
-  Future<List<BookReview>> getBookReviews(int id) async {
-    final List<dynamic> items =
-        await _apiService.getEndPointData(EndPoint.BOOK_REVIEWS, id: id.toString());
-    List<BookReview> bookReviews;
-    items.forEach((json) => bookReviews.add(BookReview.fromJson(json)));
-    return bookReviews;
+  Stream<List<BookReview>> bookReviewsStream({@required int id}) {
+    return _apiService.collectionStream<BookReview>(
+      endPoint: EndPoint.BOOK_REVIEWS,
+      id: id.toString(),
+      builder: (data) => BookReview.fromJson(data),
+    );
   }
 
-  @override
-  Future<List<MemberBookReview>> getMemberBookReviews(int id) async {
-    final List<dynamic> items = await _apiService
-        .getEndPointData(EndPoint.MEMBER_BOOK_REVIEWS, id: id.toString());
-    List<MemberBookReview> memberBookReviews;
-    items.forEach(
-        (json) => memberBookReviews.add(MemberBookReview.fromJson(json)));
-    return memberBookReviews;
+  Stream<List<MemberBookReview>> memberBookReviewsStream({@required int id}) {
+    return _apiService.collectionStream<MemberBookReview>(
+      endPoint: EndPoint.MEMBER_BOOK_REVIEWS,
+      id: id.toString(),
+      builder: (data) => MemberBookReview.fromJson(data),
+    );
   }
 
-  @override
-  Future<List<MemberAuthorReview>> getMemberAuthorReviews(int id) async {
-    final List<dynamic> items = await _apiService
-        .getEndPointData(EndPoint.MEMBER_AUTHOR_REVIEWS, id: id.toString());
-    List<MemberAuthorReview> memberAuthorReviews;
-    items.forEach(
-        (json) => memberAuthorReviews.add(MemberAuthorReview.fromJson(json)));
-    return memberAuthorReviews;
+  Stream<List<MemberAuthorReview>> memberAuthorReviewsStream({@required int id}) {
+    return _apiService.collectionStream<MemberAuthorReview>(
+      endPoint: EndPoint.MEMBER_AUTHOR_REVIEWS,
+      id: id.toString(),
+      builder: (data) => MemberAuthorReview.fromJson(data),
+    );
   }
 }

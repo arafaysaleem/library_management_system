@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 import '../../models/author.dart';
 import '../../models/book.dart';
 import '../../models/genre.dart';
@@ -12,17 +14,17 @@ abstract class IDataRepository{
   Stream<List<Author>> authorsStream();
   Stream<List<Genre>> genresStream();
   Stream<List<Member>> membersStream();
-  Future<Author> getAuthor(int id);
-  Future<Book> getBook(int id);
-  Future<Member> getMember(int id);
-  Future<List<int>> getAuthorIdsByGenre(int id);
-  Future<List<int>> getBookIdsByGenre(int id);
-  Future<List<int>> getMemberIdsByGenre(int id);
-  Future<List<int>> getMemberGenres(int id);
-  Future<List<int>> getAuthorGenres(int id);
-  Future<List<int>> getBookGenres(int id);
-  Future<List<AuthorReview>> getAuthorReviews(int id);
-  Future<List<BookReview>> getBookReviews(int id);
-  Future<List<MemberBookReview>> getMemberBookReviews(int id);
-  Future<List<MemberAuthorReview>> getMemberAuthorReviews(int id);
+  Stream<Author> authorStream({@required int id});
+  Stream<Book> bookStream({@required int id});
+  Stream<Member> memberStream({@required int id});
+  Stream<List<int>> genreAuthorsStream({@required int id});
+  Stream<List<int>> genreBooksStream({@required int id});
+  Stream<List<int>> genreMembersStream({@required int id});
+  Stream<List<int>> authorGenresStream({@required int id});
+  Stream<List<int>> bookGenresStream({@required int id});
+  Stream<List<int>> memberGenresStream({@required int id});
+  Stream<List<AuthorReview>> authorReviewsStream({@required int id});
+  Stream<List<BookReview>> bookReviewsStream({@required int id});
+  Stream<List<MemberBookReview>> memberBookReviewsStream({@required int id});
+  Stream<List<MemberAuthorReview>> memberAuthorReviewsStream({@required int id});
 }
