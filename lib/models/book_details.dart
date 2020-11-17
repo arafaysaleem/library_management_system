@@ -20,20 +20,15 @@ class BookDetails{
   ///The book
   final Book _book;
 
-  ///Published date
-  final DateTime _publishedDate;
-
   const BookDetails({
     @required List<Genre> genres,
     @required List<Author> authors,
     @required List<BookReview> reviews,
     @required Book book,
-    @required DateTime publishedDate
   })  : _genres = genres,
         _authors = authors,
         _reviews = reviews,
-        _book = book,
-        _publishedDate = publishedDate;
+        _book = book;
 
   Book get book => _book;
 
@@ -43,10 +38,8 @@ class BookDetails{
 
   List<Genre> get genres => _genres;
 
-  DateTime get publishedDate => _publishedDate;
-
   @override
   String toString() {
-    return 'BookDetails{genres: $_genres, authors: $_authors, reviews: $_reviews, book: $_book, publishedDate: $_publishedDate}';
+    return 'BookDetails{genres: $_genres, authors: $_authors, reviews: $_reviews, book: $_book}';
   }
 }

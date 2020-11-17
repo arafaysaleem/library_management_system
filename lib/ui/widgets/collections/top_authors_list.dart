@@ -29,7 +29,8 @@ class TopAuthorsList extends StatelessWidget {
           child: InkWell(
             onTap: () async {
               final DataRepository repo = DataRepository();
-              print(await repo.bookStream(id: 41).first);
+              final book = await repo.bookStream(id: 41).first;
+              print(book);
             },
             child: Column(
               children: [

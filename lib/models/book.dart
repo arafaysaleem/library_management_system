@@ -1,22 +1,29 @@
+import 'package:flutter/foundation.dart';
+
+import '../utils/helper.dart';
+
 class Book {
   int _id;
   String _name;
   int _rating;
   String _bio;
+  DateTime _publishedDate;
   String _imageUrl;
 
   Book({
-    int id,
-    String name,
-    int rating,
-    String bio,
-    String imageUrl,
+    @required int id,
+    @required String name,
+    @required int rating,
+    @required String bio,
+    @required String imageUrl,
+    @required DateTime publishedDate,
   }) {
     _id = id;
     _name = name;
     _rating = rating;
     _bio = bio;
     _imageUrl = imageUrl;
+    _publishedDate = publishedDate;
   }
 
   int get id => _id;
@@ -28,13 +35,16 @@ class Book {
   String get bio => _bio;
 
   String get imageUrl => _imageUrl;
+  
+  DateTime get publishedDate => _publishedDate;
 
   Book.fromJson(Map<String, dynamic> json) {
-    _id = json['bk_id'];
-    _name = json['bk_name'];
-    _rating = json['bk_rating'];
-    _bio = json['bk_bio'];
-    _imageUrl = json['bk_image_url'];
+    _id = json['bk_id'] as int;
+    _name = json['bk_name'] as String;
+    _rating = json['bk_rating'] as int;
+    _bio = json['bk_bio'] as String;
+    _imageUrl = json['bk_image_url'] as String;
+    _publishedDate = Helper.dateDeserializer(json["bk_published_date"]);
   }
 
   Map<String, dynamic> toJson() {
@@ -44,6 +54,7 @@ class Book {
     data['bk_rating'] = _rating;
     data['bk_bio'] = _bio;
     data['bk_image_url'] = _imageUrl;
+    data['bk_published_date'] = Helper.dateSerializer(_publishedDate);
     return data;
   }
 
@@ -57,6 +68,6 @@ class Book {
 
   @override
   String toString() {
-    return 'Book{id: $_id, name: $_name, imageUrl: $_imageUrl}';
+    return 'Book{_id: $_id, _name: $_name, _rating: $_rating, _publishedDate: $_publishedDate}';
   }
 }

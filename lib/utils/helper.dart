@@ -11,10 +11,14 @@ class Helper{
   }
 
   static String dateSerializer(DateTime date){
-    return DateFormat('dd-MM-YYYY').format(date);
+    return DateFormat('yyyy-MM-dd').format(date);
   }
 
   static DateTime dateDeserializer(String iso8601date){
-    return DateTime.tryParse(dateSerializer(DateTime.tryParse(iso8601date)));
+    return DateTime.tryParse(iso8601date);
+  }
+
+  static String datePresenter(DateTime date){
+    return DateFormat('dd-MM-yyyy').format(date);
   }
 }
