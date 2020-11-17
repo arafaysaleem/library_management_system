@@ -8,10 +8,10 @@ import '../../models/member_author_review.dart';
 import '../../models/member_book_review.dart';
 
 abstract class IDataRepository{
-  Future<List<Book>> getAllBooks();
-  Future<List<Author>> getAllAuthors();
-  Future<List<Genre>> getAllGenres();
-  Future<List<Member>> getAllMembers();
+  Stream<List<Book>> booksStream();
+  Stream<List<Author>> authorsStream();
+  Stream<List<Genre>> genresStream();
+  Stream<List<Member>> membersStream();
   Future<Author> getAuthor(int id);
   Future<Book> getBook(int id);
   Future<Member> getMember(int id);

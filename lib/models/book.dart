@@ -46,4 +46,5 @@ class Book {
     data['bk_image_url'] = _imageUrl;
     return data;
   }
+
 }

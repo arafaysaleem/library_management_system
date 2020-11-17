@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:library_management_system/services/repositories/data_repository.dart';
 
 import '../../../utils/helper.dart';
 
@@ -25,23 +26,29 @@ class TopAuthorsList extends StatelessWidget {
         //TODO: Change item builder to author item
         itemBuilder: (ctx, i) => Padding(
           padding: EdgeInsets.symmetric(horizontal: Helper.hPadding),
-          child: Column(
-            children: [
-              Container(
-                width: 80,
-                height: 80,
-                decoration: BoxDecoration(
-                    color: Colors.primaries[i % Colors.primaries.length],
-                    shape: BoxShape.circle),
-              ),
-              SizedBox(height: 5),
-              Text(
-                "Name $i",
-                style: TextStyle(
-                  color: Colors.white,
+          child: InkWell(
+            onTap: () async {
+              final DataRepository repo = DataRepository();
+              print(await repo.genresStream().first);
+            },
+            child: Column(
+              children: [
+                Container(
+                  width: 80,
+                  height: 80,
+                  decoration: BoxDecoration(
+                      color: Colors.primaries[i % Colors.primaries.length],
+                      shape: BoxShape.circle),
                 ),
-              ),
-            ],
+                SizedBox(height: 5),
+                Text(
+                  "Name $i",
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

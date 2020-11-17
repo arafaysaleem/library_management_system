@@ -1,4 +1,4 @@
-import '../networking/api_provider.dart';
+import '../networking/api_service.dart';
 
 import '../../utils/enums/endpoint_enum.dart';
 
@@ -14,62 +14,54 @@ import '../../models/member_author_review.dart';
 import '../../models/member_book_review.dart';
 
 class DataRepository implements IDataRepository {
-  final ApiProvider _apiProvider = ApiProvider();
+  final ApiService _apiService = ApiService.instance;
 
-  @override
-  Future<List<Author>> getAllAuthors() async {
-    final List<dynamic> items =
-        await _apiProvider.getEndPointData(EndPoint.AUTHORS);
-    List<Author> authors;
-    items.forEach((json) => authors.add(Author.fromJson(json)));
-    return authors;
+  Stream<List<Book>> booksStream() {
+    return _apiService.collectionStream<Book>(
+      endPoint: EndPoint.BOOKS,
+      builder: (data) => Book.fromJson(data),
+    );
   }
 
-  @override
-  Future<List<Book>> getAllBooks() async {
-    final List<dynamic> items =
-        await _apiProvider.getEndPointData(EndPoint.BOOKS);
-    List<Book> books;
-    items.forEach((json) => books.add(Book.fromJson(json)));
-    return books;
+  Stream<List<Author>> authorsStream() {
+    return _apiService.collectionStream<Author>(
+      endPoint: EndPoint.AUTHORS,
+      builder: (data) => Author.fromJson(data),
+    );
   }
 
-  @override
-  Future<List<Genre>> getAllGenres() async {
-    final List<dynamic> items =
-        await _apiProvider.getEndPointData(EndPoint.BOOKS);
-    List<Genre> genres;
-    items.forEach((json) => genres.add(Genre.fromJson(json)));
-    return genres;
+  Stream<List<Genre>> genresStream() {
+    return _apiService.collectionStream<Genre>(
+      endPoint: EndPoint.GENRES,
+      builder: (data) => Genre.fromJson(data),
+    );
   }
 
-  @override
-  Future<List<Member>> getAllMembers() async {
-    final List<dynamic> items =
-        await _apiProvider.getEndPointData(EndPoint.BOOKS);
-    List<Member> members;
-    items.forEach((json) => members.add(Member.fromJson(json)));
-    return members;
+  Stream<List<Member>> membersStream() {
+    return _apiService.collectionStream<Member>(
+      endPoint: EndPoint.MEMBERS,
+      builder: (data) => Member.fromJson(data),
+    );
   }
 
   @override
   Future<Author> getAuthor(int id) async {
     final List<dynamic> items =
-        await _apiProvider.getEndPointData(EndPoint.AUTHORS, id: id);
+        await _apiService.getEndPointData(EndPoint.AUTHORS, id: id.toString());
     return Author.fromJson(items[0]);
   }
 
   @override
   Future<Book> getBook(int id) async {
     final List<dynamic> items =
-        await _apiProvider.getEndPointData(EndPoint.BOOKS, id: id);
+        await _apiService.getEndPointData(EndPoint.BOOKS, id: id.toString());
     return Book.fromJson(items[0]);
   }
 
   @override
   Future<Member> getMember(int id) async {
     final List<dynamic> items =
-        await _apiProvider.getEndPointData(EndPoint.MEMBERS, id: id);
+        await _apiService.getEndPointData(EndPoint.MEMBERS, id: id.toString());
     return Member.fromJson(items[0]);
   }
 
@@ -80,7 +72,7 @@ class DataRepository implements IDataRepository {
   @override
   Future<List<int>> getAuthorIdsByGenre(int id) async {
     final List<dynamic> items =
-        await _apiProvider.getEndPointData(EndPoint.GENRE_AUTHORS, id: id);
+        await _apiService.getEndPointData(EndPoint.GENRE_AUTHORS, id: id.toString());
     List<int> authorIds;
     items.forEach((json) => authorIds.add(json["a_id"]));
     return authorIds;
@@ -89,7 +81,7 @@ class DataRepository implements IDataRepository {
   @override
   Future<List<int>> getBookIdsByGenre(int id) async {
     final List<dynamic> items =
-        await _apiProvider.getEndPointData(EndPoint.GENRE_BOOKS, id: id);
+        await _apiService.getEndPointData(EndPoint.GENRE_BOOKS, id: id.toString());
     List<int> bookIds;
     items.forEach((json) => bookIds.add(json["bk_id"]));
     return bookIds;
@@ -98,7 +90,7 @@ class DataRepository implements IDataRepository {
   @override
   Future<List<int>> getMemberIdsByGenre(int id) async {
     final List<dynamic> items =
-        await _apiProvider.getEndPointData(EndPoint.GENRE_MEMBERS, id: id);
+        await _apiService.getEndPointData(EndPoint.GENRE_MEMBERS, id: id.toString());
     List<int> memberIds;
     items.forEach((json) => memberIds.add(json["m_id"]));
     return memberIds;
@@ -110,7 +102,7 @@ class DataRepository implements IDataRepository {
   @override
   Future<List<int>> getAuthorGenres(int id) async {
     final List<dynamic> items =
-        await _apiProvider.getEndPointData(EndPoint.AUTHOR_GENRES, id: id);
+        await _apiService.getEndPointData(EndPoint.AUTHOR_GENRES, id: id.toString());
     List<int> genreIds;
     items.forEach((json) => genreIds.add(json["g_id"]));
     return genreIds;
@@ -119,7 +111,7 @@ class DataRepository implements IDataRepository {
   @override
   Future<List<int>> getBookGenres(int id) async {
     final List<dynamic> items =
-        await _apiProvider.getEndPointData(EndPoint.BOOK_GENRES, id: id);
+        await _apiService.getEndPointData(EndPoint.BOOK_GENRES, id: id.toString());
     List<int> genreIds;
     items.forEach((json) => genreIds.add(json["g_id"]));
     return genreIds;
@@ -128,7 +120,7 @@ class DataRepository implements IDataRepository {
   @override
   Future<List<int>> getMemberGenres(int id) async {
     final List<dynamic> items =
-        await _apiProvider.getEndPointData(EndPoint.MEMBER_PREFERENCES, id: id);
+        await _apiService.getEndPointData(EndPoint.MEMBER_PREFERENCES, id: id.toString());
     List<int> genreIds;
     items.forEach((json) => genreIds.add(json["g_id"]));
     return genreIds;
@@ -137,7 +129,7 @@ class DataRepository implements IDataRepository {
   @override
   Future<List<AuthorReview>> getAuthorReviews(int id) async {
     final List<dynamic> items =
-        await _apiProvider.getEndPointData(EndPoint.AUTHOR_REVIEWS, id: id);
+        await _apiService.getEndPointData(EndPoint.AUTHOR_REVIEWS, id: id.toString());
     List<AuthorReview> authorReviews;
     items.forEach((json) => authorReviews.add(AuthorReview.fromJson(json)));
     return authorReviews;
@@ -146,7 +138,7 @@ class DataRepository implements IDataRepository {
   @override
   Future<List<BookReview>> getBookReviews(int id) async {
     final List<dynamic> items =
-        await _apiProvider.getEndPointData(EndPoint.BOOK_REVIEWS, id: id);
+        await _apiService.getEndPointData(EndPoint.BOOK_REVIEWS, id: id.toString());
     List<BookReview> bookReviews;
     items.forEach((json) => bookReviews.add(BookReview.fromJson(json)));
     return bookReviews;
@@ -154,8 +146,8 @@ class DataRepository implements IDataRepository {
 
   @override
   Future<List<MemberBookReview>> getMemberBookReviews(int id) async {
-    final List<dynamic> items = await _apiProvider
-        .getEndPointData(EndPoint.MEMBER_BOOK_REVIEWS, id: id);
+    final List<dynamic> items = await _apiService
+        .getEndPointData(EndPoint.MEMBER_BOOK_REVIEWS, id: id.toString());
     List<MemberBookReview> memberBookReviews;
     items.forEach(
         (json) => memberBookReviews.add(MemberBookReview.fromJson(json)));
@@ -164,8 +156,8 @@ class DataRepository implements IDataRepository {
 
   @override
   Future<List<MemberAuthorReview>> getMemberAuthorReviews(int id) async {
-    final List<dynamic> items = await _apiProvider
-        .getEndPointData(EndPoint.MEMBER_AUTHOR_REVIEWS, id: id);
+    final List<dynamic> items = await _apiService
+        .getEndPointData(EndPoint.MEMBER_AUTHOR_REVIEWS, id: id.toString());
     List<MemberAuthorReview> memberAuthorReviews;
     items.forEach(
         (json) => memberAuthorReviews.add(MemberAuthorReview.fromJson(json)));
