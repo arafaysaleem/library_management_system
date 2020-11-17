@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../providers/genre_provider.dart';
+import '../../../providers/genres_provider.dart';
 
 import '../common/search_textfield.dart';
 import '../books/genres_books_list.dart';
@@ -16,7 +16,7 @@ class BookListingsSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final genreProvider= Provider.of<GenreProvider>(context,listen: false);
+    final genreProvider= Provider.of<GenresProvider>(context,listen: false);
     return Expanded(
       child: Container(
         decoration: BoxDecoration(
@@ -44,7 +44,7 @@ class BookListingsSheet extends StatelessWidget {
             Expanded(
               child: PageView.builder(
                 controller: genreController,
-                itemCount: genreProvider.genres.length,
+                itemCount: genreProvider.genresString.length,
                 onPageChanged: genreProvider.setActiveIndex,
                 itemBuilder: (ctx, i) => GenreBooksList(),
               ),

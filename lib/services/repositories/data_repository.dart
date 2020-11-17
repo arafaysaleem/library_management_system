@@ -16,6 +16,11 @@ import '../../models/member_author_review.dart';
 import '../../models/member_book_review.dart';
 
 class DataRepository implements IDataRepository {
+  DataRepository._();
+
+  /// Singleton instance of a ApiService class.
+  static final instance = DataRepository._();
+
   final ApiService _apiService = ApiService.instance;
 
   Stream<List<Book>> booksStream() {

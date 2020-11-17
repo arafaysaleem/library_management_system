@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../providers/genre_provider.dart';
+import '../../../providers/genres_provider.dart';
 
 import '../../../utils/helper.dart';
 
@@ -16,8 +16,8 @@ class GenresList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final genres = Provider.of<GenreProvider>(context,listen: false).genres;
-    return Selector<GenreProvider,int>(
+    final genres = Provider.of<GenresProvider>(context,listen: false).genresString;
+    return Selector<GenresProvider,int>(
       selector: (ctx,genreProvider) => genreProvider.activeIndex,
       builder: (ctx,activeIndex,_) => SizedBox(
         height: 34,

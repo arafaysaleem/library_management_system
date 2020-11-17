@@ -28,7 +28,7 @@ class TopAuthorsList extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: Helper.hPadding),
           child: InkWell(
             onTap: () async {
-              final DataRepository repo = DataRepository();
+              final repo = DataRepository.instance;
               final book = await repo.bookStream(id: 41).first;
               print(book);
             },

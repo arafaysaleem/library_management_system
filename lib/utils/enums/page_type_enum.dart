@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../providers/genre_provider.dart';
+import '../../providers/genres_provider.dart';
 import '../../providers/bottom_nav_bar_provider.dart';
 
 import '../../ui/screens/login_screen.dart';
@@ -41,7 +41,7 @@ extension ActivePage on PageType {
         return BookCollectionsScreen();
       case PageType.GENRES:
         return ChangeNotifierProvider(
-          create: (_) => GenreProvider(),
+          create: (_) => GenresProvider(),
           child: GenreBooksScreen(),
         );
       case PageType.AUTHOR:
