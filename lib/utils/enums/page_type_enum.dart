@@ -5,6 +5,8 @@ import 'package:provider/provider.dart';
 import '../../providers/genres_provider.dart';
 import '../../providers/bottom_nav_bar_provider.dart';
 
+import '../../services/repositories/data_repository.dart';
+
 import '../../ui/screens/login_screen.dart';
 import '../../ui/screens/home_screen.dart';
 import '../../ui/screens/primary/book_collections_screen.dart';
@@ -33,17 +35,17 @@ extension ActivePage on PageType {
   Widget getRoute() {
     switch (this) {
       case PageType.HOME:
-        return ChangeNotifierProvider(
-          create: (_) => BottomNavBarProvider(),
+        return MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (_) => BottomNavBarProvider()),
+            ChangeNotifierProvider(create: (_) => GenresProvider(dataRepository: DataRepository.instance)),
+          ],
           child: HomeScreen(),
         );
       case PageType.COLLECTIONS:
         return BookCollectionsScreen();
       case PageType.GENRES:
-        return ChangeNotifierProvider(
-          create: (_) => GenresProvider(),
-          child: GenreBooksScreen(),
-        );
+        return GenreBooksScreen();
       case PageType.AUTHOR:
         return AuthorDetailsScreen();
       case PageType.AUTHORGALLERY:

@@ -32,26 +32,11 @@ class GenresProvider with ChangeNotifier {
     });
   }
 
-  //Temporary
-  //TODO: use this when Genre complete
-  // final List<Genre> genres;
-  final _genresString = [
-    'Popular',
-    'Art',
-    'Business',
-    'Entrepreneurship',
-    'Fantasy',
-    'Horror',
-    'Mystery',
-    'Fiction',
-  ];
-
   int _activeIndex = 0;
 
-  UnmodifiableListView<String> get genresString =>
-      UnmodifiableListView(_genresString);
-
   int get activeIndex => _activeIndex;
+
+  bool isActiveIndex(int i) => _activeIndex == i;
 
   setActiveIndex(int newIndex) {
     _activeIndex = newIndex;
