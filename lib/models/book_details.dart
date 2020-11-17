@@ -44,4 +44,9 @@ class BookDetails{
   List<Genre> get genres => _genres;
 
   DateTime get publishedDate => _publishedDate;
+
+  @override
+  String toString() {
+    return 'BookDetails{genres: $_genres, authors: $_authors, reviews: $_reviews, book: $_book, publishedDate: $_publishedDate}';
+  }
 }

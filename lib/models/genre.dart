@@ -22,4 +22,17 @@ class Genre {
     data['g_name'] = _name;
     return data;
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Genre && runtimeType == other.runtimeType && _id == other.id;
+
+  @override
+  int get hashCode => _id.hashCode;
+
+  @override
+  String toString() {
+    return 'Genre{id: $_id, name: $_name}';
+  }
 }

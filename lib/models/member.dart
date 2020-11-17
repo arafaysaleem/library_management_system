@@ -60,4 +60,17 @@ class Member {
     data['m_image_url'] = _imageUrl;
     return data;
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Member && runtimeType == other.runtimeType && _id == other.id;
+
+  @override
+  int get hashCode => _id.hashCode;
+
+  @override
+  String toString() {
+    return 'Member{id: $_id, firstName: $_firstName, lastName: $_lastName, startDate: $_startDate, age: $_age}';
+  }
 }

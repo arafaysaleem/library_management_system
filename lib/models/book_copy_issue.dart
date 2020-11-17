@@ -36,5 +36,20 @@ class BookCopyIssue {
 
   DateTime get issueDate => _issueDate;
 
-  bool get isReturned => _returnedDate == DateTime.parse('00-00-0000');
+  bool get isReturned => _returnedDate != DateTime.parse('00-00-0000');
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is BookCopyIssue &&
+          runtimeType == other.runtimeType &&
+          _issueId == other.issueId;
+
+  @override
+  int get hashCode => _issueId.hashCode;
+
+  @override
+  String toString() {
+    return 'BookCopyIssue{issueId: $_issueId, mId: $_mId, bookCopy: $_bookCopy, issueDate: $_issueDate, dueDate: $_dueDate, returnedDate: $_returnedDate}';
+  }
 }

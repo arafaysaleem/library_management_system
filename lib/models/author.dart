@@ -55,4 +55,17 @@ class Author {
     data['a_image_url'] = _imageUrl;
     return data;
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Author && runtimeType == other.runtimeType && _id == other.id;
+
+  @override
+  int get hashCode => _id.hashCode;
+
+  @override
+  String toString() {
+    return 'Author{id: $_id, age: $_age, firstName: $_firstName, lastName: $_lastName, country: $_country}';
+  }
 }

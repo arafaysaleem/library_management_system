@@ -36,4 +36,9 @@ class AuthorDetails {
   List<Book> get books => _books;
 
   List<Genre> get genres => _genres;
+
+  @override
+  String toString() {
+    return 'AuthorDetails{genres: $_genres, books: $_books, reviews: $_reviews, author: $_author}';
+  }
 }

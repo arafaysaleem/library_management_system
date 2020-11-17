@@ -47,4 +47,16 @@ class Book {
     return data;
   }
 
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Book && runtimeType == other.runtimeType && _id == other.id;
+
+  @override
+  int get hashCode => _id.hashCode;
+
+  @override
+  String toString() {
+    return 'Book{id: $_id, name: $_name, imageUrl: $_imageUrl}';
+  }
 }

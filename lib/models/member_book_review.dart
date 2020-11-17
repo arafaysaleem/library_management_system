@@ -71,4 +71,23 @@ class MemberBookReview {
     data['aImageUrl'] = _aImageUrl;
     return data;
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is MemberBookReview &&
+          runtimeType == other.runtimeType &&
+          _text == other.text &&
+          _date == other.date &&
+          _mId == other.mId &&
+          _aId == other.aId;
+
+  @override
+  int get hashCode =>
+      _text.hashCode ^ _date.hashCode ^ _mId.hashCode ^ _aId.hashCode;
+
+  @override
+  String toString() {
+    return 'MemberBookReview{text: $_text, rating: $_rating, date: $_date, mId: $_mId, aId: $_aId, aFirstName: $_aFirstName, aLastName: $_aLastName}';
+  }
 }
