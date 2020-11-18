@@ -9,16 +9,16 @@ import 'reviews_provider.dart';
 import '../models/book.dart';
 import '../models/genre.dart';
 import '../models/author.dart';
-import '../models/book_review.dart';
-import '../models/book_details.dart';
+import '../models/author_review.dart';
+import '../models/author_details.dart';
 
-class BookDetailsProvider with ChangeNotifier {
+class AuthorDetailsProvider with ChangeNotifier {
   final DataRepository _dataRepository;
   final PublishesProvider _publishesProvider;
   final GenresProvider _genresProvider;
   final ReviewsProvider _reviewsProvider;
 
-  BookDetailsProvider({
+  AuthorDetailsProvider({
     @required publishesProvider,
     @required genresProvider,
     @required reviewsProvider,
@@ -29,32 +29,32 @@ class BookDetailsProvider with ChangeNotifier {
         _reviewsProvider = reviewsProvider;
 
   /// Fetch bookDetails for bookId
-  Future<BookDetails> getBookDetails(int bkId) async {
+  Future<AuthorDetails> getAuthorDetails(int aId) async {
     final results = await Future.wait([
-      _publishesProvider.getBookAuthors(bkId),
-      _genresProvider.getBookGenres(bkId),
-      _reviewsProvider.getBookReviews(bkId)
+      _publishesProvider.getAuthorBooks(aId),
+      _genresProvider.getAuthorGenres(aId),
+      _reviewsProvider.getAuthorReviews(aId)
     ]);
 
     /// get and store the book for bkId from _publishesProvider
-    final Book book = _publishesProvider.getBook(bkId);
+    final Author author = _publishesProvider.getAuthor(aId);
 
     /// get and store list of Authors for bookId from _publishesProvider,
-    final bookAuthors = List<Author>.from(results[0]);
+    final authorBooks = List<Book>.from(results[0]);
 
     /// get and store list of Genres for bookId from _genreProvider,
-    final bookGenres = List<Genre>.from(results[1]);
+    final authorGenres = List<Genre>.from(results[1]);
 
     /// then fetch and store list of BookReviews,
-    final bookReviews = List<BookReview>.from(results[2]);
+    final authorReviews = List<AuthorReview>.from(results[2]);
 
     /// then pass these lists and book into constructor for BookDetails,
     /// store bookDetails object at bookId into _bookDetails
-    return BookDetails(
-      genres: bookGenres,
-      authors: bookAuthors,
-      reviews: bookReviews,
-      book: book,
+    return AuthorDetails(
+      genres: authorGenres,
+      books: authorBooks,
+      reviews: authorReviews,
+      author: author,
     );
   }
 }

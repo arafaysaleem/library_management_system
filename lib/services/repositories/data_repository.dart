@@ -163,4 +163,20 @@ class DataRepository implements IDataRepository {
       builder: (data) => MemberAuthorReview.fromJson(data),
     );
   }
+
+  Stream<List<int>> bookAuthorsStream({@required int id}) {
+    return _apiService.collectionStream<int>(
+      endPoint: EndPoint.BOOK_AUTHORS,
+      id: id.toString(),
+      builder: (data) => data["a_id"],
+    );
+  }
+
+  Stream<List<int>> authorBooksStream({@required int id}) {
+    return _apiService.collectionStream<int>(
+      endPoint: EndPoint.AUTHOR_BOOKS,
+      id: id.toString(),
+      builder: (data) => data["bk_id"],
+    );
+  }
 }

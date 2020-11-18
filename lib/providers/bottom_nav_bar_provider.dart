@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 
 import '../utils/enums/page_type_enum.dart';
 
-class BottomNavBarProvider with ChangeNotifier{
-  final List<PageType> _pages=[
+class BottomNavBarProvider with ChangeNotifier {
+  final List<PageType> _pages = [
     PageType.COLLECTIONS,
     PageType.GENRES,
     PageType.AUTHORGALLERY,
@@ -32,9 +32,8 @@ class BottomNavBarProvider with ChangeNotifier{
     notifyListeners();
   }
 
-  setActivePageIndex(int i){
+  setActivePageIndex(int i) {
     _activePage = _pages[i];
     notifyListeners();
   }
-
 }

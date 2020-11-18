@@ -9,8 +9,7 @@ import '../models/genre.dart';
 class GenresProvider with ChangeNotifier {
   final DataRepository _dataRepository;
 
-  GenresProvider({@required dataRepository})
-      : _dataRepository = dataRepository {
+  GenresProvider({@required dataRepository}) : _dataRepository = dataRepository {
     _initializeData();
   }
 
@@ -18,8 +17,7 @@ class GenresProvider with ChangeNotifier {
 
   UnmodifiableMapView<int, Genre> get genresMap => UnmodifiableMapView(_genres);
 
-  UnmodifiableListView<Genre> get genres =>
-      UnmodifiableListView(_genres.values);
+  UnmodifiableListView<Genre> get genres => UnmodifiableListView(_genres.values);
 
   void _initializeData() {
     _initializeGenresMap();
@@ -41,5 +39,27 @@ class GenresProvider with ChangeNotifier {
   setActiveIndex(int newIndex) {
     _activeIndex = newIndex;
     notifyListeners();
+  }
+
+  Future<List<Genre>> getBookGenres(int bkId) async {
+    List<Genre> bookGenres;
+    //Future based
+    await for (List<int> genreIds in _dataRepository.bookGenresStream(id: bkId)) {
+      genreIds.forEach((gId) => bookGenres.add(_genres[gId]));
+    }
+    //Stream based code
+    //_dataRepository.bookGenresStream(id: bkId).forEach((gId) => bookGenres.add(_genres[gId]));
+    return bookGenres;
+  }
+
+  Future<List<Genre>> getAuthorGenres(int aId) async {
+    List<Genre> authorGenres;
+    //Future based
+    await for (List<int> genreIds in _dataRepository.authorGenresStream(id: aId)) {
+      genreIds.forEach((gId) => authorGenres.add(_genres[gId]));
+    }
+    //Stream based code
+    //_dataRepository.bookGenresStream(id: bkId).forEach((gId) => bookGenres.add(_genres[gId]));
+    return authorGenres;
   }
 }
