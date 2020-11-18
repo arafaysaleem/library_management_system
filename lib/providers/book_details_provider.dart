@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../services/repositories/data_repository.dart';
-
 import 'publishes_provider.dart';
 import 'genres_provider.dart';
 import 'reviews_provider.dart';
@@ -13,7 +11,6 @@ import '../models/book_review.dart';
 import '../models/book_details.dart';
 
 class BookDetailsProvider with ChangeNotifier {
-  final DataRepository _dataRepository;
   final PublishesProvider _publishesProvider;
   final GenresProvider _genresProvider;
   final ReviewsProvider _reviewsProvider;
@@ -22,9 +19,7 @@ class BookDetailsProvider with ChangeNotifier {
     @required publishesProvider,
     @required genresProvider,
     @required reviewsProvider,
-    @required dataRepository,
-  })  : _dataRepository = dataRepository,
-        _publishesProvider = publishesProvider,
+  })  : _publishesProvider = publishesProvider,
         _genresProvider = genresProvider,
         _reviewsProvider = reviewsProvider;
 

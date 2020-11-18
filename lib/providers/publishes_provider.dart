@@ -50,7 +50,7 @@ class PublishesProvider with ChangeNotifier {
   Author getAuthor(int aId) => _authors[aId];
 
   Future<List<Author>> getBookAuthors(int bkId) async {
-    List<Author> bookAuthors=[];
+    List<Author> bookAuthors = [];
     //Future based
     await for (List<int> authorIds in _dataRepository.bookAuthorsStream(id: bkId)) {
       authorIds.forEach((aId) => bookAuthors.add(_authors[aId]));
@@ -63,7 +63,7 @@ class PublishesProvider with ChangeNotifier {
   }
 
   Future<List<Book>> getAuthorBooks(int aId) async {
-    List<Book> authorBooks=[];
+    List<Book> authorBooks = [];
     //Future based
     await for (List<int> bookIds in _dataRepository.authorBooksStream(id: aId)) {
       bookIds.forEach((bkId) => authorBooks.add(_books[bkId]));
@@ -73,5 +73,15 @@ class PublishesProvider with ChangeNotifier {
     //   authorIds.forEach((bkId) => authorBooks.add(_books[bkId]));
     // });
     return authorBooks;
+  }
+
+  Stream<List<Book>> getGenreBooks(int gId) {
+    return _dataRepository.genreBooksStream(id: gId).map<List<Book>>((bookIds) {
+      return bookIds.map(
+        (bkId) {
+          return _books[bkId];
+        },
+      ).toList();
+    });
   }
 }

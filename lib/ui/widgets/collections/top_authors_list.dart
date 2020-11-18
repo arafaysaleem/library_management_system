@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:library_management_system/providers/book_details_provider.dart';
-import 'package:provider/provider.dart';
 
 import '../../../utils/helper.dart';
 
-class TopAuthorsList extends StatelessWidget {
-  //TODO: use this when Author complete
-  // final List<Author> authors;
+import '../../../utils/enums/page_type_enum.dart';
 
-  final List<int> authors;
+import '../../../models/author.dart';
+
+class TopAuthorsList extends StatelessWidget {
+  final List<Author> authors;
 
   const TopAuthorsList({
     Key key,
@@ -17,43 +16,47 @@ class TopAuthorsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<BookDetailsProvider>(context, listen: false);
     return SizedBox(
-      height: 110,
-      child: ListView.builder(
-        physics: BouncingScrollPhysics(),
-        scrollDirection: Axis.horizontal,
-        itemCount: authors.length,
-
-        //TODO: Change item builder to author item
-        itemBuilder: (ctx, i) => Padding(
-          padding: EdgeInsets.symmetric(horizontal: Helper.hPadding),
-          child: InkWell(
-            onTap: () async {
-              print(await provider.getBookDetails(66));
-            },
-            child: Column(
-              children: [
-                Container(
-                  width: 80,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    color: Colors.primaries[i % Colors.primaries.length],
-                    shape: BoxShape.circle,
+      height: 135,
+      child: authors.isEmpty
+          ? Center(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: Helper.hPadding),
+                child: LinearProgressIndicator(),
+              ),
+            )
+          : ListView.builder(
+              physics: BouncingScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              itemCount: authors.length,
+              itemBuilder: (ctx, i) => Padding(
+                padding: EdgeInsets.symmetric(horizontal: Helper.hPadding),
+                child: InkWell(
+                  onTap: () {
+                    Helper.navigateToPage(
+                      context: context,
+                      page: PageType.AUTHOR,
+                      arguments: authors[i].id,
+                    );
+                  },
+                  child: Column(
+                    children: [
+                      CircleAvatar(
+                        radius: 40,
+                        backgroundImage: NetworkImage(authors[i].imageUrl),
+                      ),
+                      SizedBox(height: 5),
+                      Text(
+                        "${authors[i].firstName}\n${authors[i].lastName}",
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                SizedBox(height: 5),
-                Text(
-                  "Name $i",
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
-              ],
+              ),
             ),
-          ),
-        ),
-      ),
     );
   }
 }

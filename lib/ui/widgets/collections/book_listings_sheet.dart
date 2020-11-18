@@ -48,7 +48,7 @@ class BookListingsSheet extends StatelessWidget {
                   controller: genreController,
                   itemCount: noOfGenres,
                   onPageChanged: genreProvider.setActiveIndex,
-                  itemBuilder: (ctx, i) => GenreBooksList(),
+                  itemBuilder: (ctx, i) => GenreBooksList(gId: genreProvider.activeGenreId),
                 ),
               )
             ],

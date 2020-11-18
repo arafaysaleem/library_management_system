@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 
 import '../../../utils/helper.dart';
 
+import '../../../models/genre.dart';
+
 class AuthorDetailsSheet extends StatelessWidget {
-  final Color color;
+  final String authorImageUrl;
   final String authorName;
-  final String authorAge;
+  final int authorAge;
   final String authorCountry;
-  final String authorBio;
   final int authorRating;
-  final List<String> genres;
+  final List<Genre> genres;
 
   const AuthorDetailsSheet({
     Key key,
-    @required this.color,
+    @required this.authorImageUrl,
     @required this.authorName,
     @required this.authorAge,
     @required this.authorCountry,
-    @required this.authorBio,
     @required this.authorRating,
     @required this.genres,
   }) : super(key: key);
@@ -26,6 +26,7 @@ class AuthorDetailsSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
+
         // White Details Card
         Positioned.fill(
           top: 60,
@@ -45,13 +46,9 @@ class AuthorDetailsSheet extends StatelessWidget {
         //Author image
         Align(
           alignment: Alignment.topCenter,
-          child: Container(
-            height: 220,
-            width: 170,
-            decoration: BoxDecoration(
-              color: color,
-              borderRadius: BorderRadius.circular(20),
-            ),
+          child: CircleAvatar(
+            radius: 110,
+            backgroundImage: NetworkImage(authorImageUrl),
           ),
         ),
       ],
@@ -78,7 +75,7 @@ class AuthorDetailsSheet extends StatelessWidget {
 
         //Author age
         Text(
-          authorAge,
+          "$authorAge yrs old",
           style: TextStyle(
             color: Colors.grey[700],
             fontSize: 16,
@@ -101,79 +98,14 @@ class AuthorDetailsSheet extends StatelessWidget {
         SizedBox(height: 10),
 
         //Author ratings
-        buildRatings(),
+        Helper.buildRatings(authorRating),
 
         SizedBox(height: 15),
 
-        buildGenres(context),
+        Helper.buildGenres(context,genres),
 
         SizedBox(height: 15),
 
-        Text(
-          authorBio,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 15,
-            color: Colors.black45,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Wrap buildGenres(BuildContext context) {
-    return Wrap(
-      alignment: WrapAlignment.center,
-      spacing: 10,
-      runSpacing: 10,
-      children: [
-        ...genres
-            .map(
-              (genre) => Chip(
-                elevation: 0,
-                backgroundColor: Colors.white,
-                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                padding: EdgeInsets.zero,
-                labelPadding: const EdgeInsets.symmetric(horizontal: 10),
-                label: Text(genre),
-                labelStyle: TextStyle(
-                  color: Theme.of(context).primaryColor,
-                  fontSize: 12,
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                  side: BorderSide(
-                    color: Theme.of(context).primaryColor,
-                    width: 1,
-                  ),
-                ),
-              ),
-            )
-            .toList(),
-      ],
-    );
-  }
-
-  Row buildRatings() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        //Rating stars
-        for (int i = 0; i < authorRating; i++)
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 3),
-            child: Icon(
-              Icons.star,
-              color: Colors.amber[700],
-            ),
-          ),
-
-        //Empty stars
-        for (int i = authorRating; i < 5; i++)
-          Icon(
-            Icons.star,
-            color: Colors.grey[300],
-          ),
       ],
     );
   }

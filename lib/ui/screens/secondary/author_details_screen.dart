@@ -1,46 +1,61 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../../providers/author_details_provider.dart';
 
 import '../../../utils/helper.dart';
+
+import '../../../models/author.dart';
+import '../../../models/author_details.dart';
 
 import '../../widgets/common/bottom_button_bar.dart';
 import '../../widgets/authors/author_details_sheet.dart';
 
 class AuthorDetailsScreen extends StatelessWidget {
-  //Use this when AuthorDetails class is ready
-  //final AuthorDetails _authorDetails;
 
   @override
   Widget build(BuildContext context) {
-    final Map<String, dynamic> authorDetails =
-        ModalRoute.of(context).settings.arguments;
+    final int aId = ModalRoute.of(context).settings.arguments;
+    final authorDetailsProvider = Provider.of<AuthorDetailsProvider>(context,listen: false);
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(height: 20),
+        child: FutureBuilder<AuthorDetails>(
+          future: authorDetailsProvider.getAuthorDetails(aId),
+          builder: (ctx,snapshot) {
+            if(snapshot.hasData) {
+              final AuthorDetails authorDetails = snapshot.data;
+              final Author author = authorDetails.author;
+              return SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(height: 20),
 
-              //Back arrow & title
-              buildAppBar(context),
+                    //Back arrow & title
+                    buildAppBar(context),
 
-              SizedBox(height: 30),
+                    SizedBox(height: 30),
 
-              // Book Details Sheet
-              SizedBox(
-                height: MediaQuery.of(context).size.height,
-                child: AuthorDetailsSheet(
-                  color: authorDetails["color"],
-                  authorName:
-                      "${authorDetails["a_first_name"]} ${authorDetails["a_last_name"]}",
-                  authorAge: authorDetails["a_age"],
-                  authorCountry: authorDetails["a_country"],
-                  authorBio: authorDetails["a_bio"],
-                  authorRating: authorDetails["a_rating"],
-                  genres: authorDetails['genres'],
+                    // Book Details Sheet
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height,
+                      child: AuthorDetailsSheet(
+                        authorImageUrl: author.imageUrl,
+                        authorName:
+                        "${author.firstName} ${author.lastName}",
+                        authorAge: author.age,
+                        authorCountry: author.country,
+                        authorRating: author.rating,
+                        genres: authorDetails.genres,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
-          ),
+              );
+            }
+            else{
+              return Center(child: CircularProgressIndicator());
+            }
+          },
         ),
       ),
       bottomNavigationBar: BottomButtonBar(

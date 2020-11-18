@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../../providers/publishes_provider.dart';
 
 import '../../../utils/helper.dart';
 
@@ -55,11 +58,13 @@ class BookCollectionsScreen extends StatelessWidget {
               SizedBox(height: 10),
 
               //Top Authors list
-              TopAuthorsList(
-                authors: [1, 2, 3, 4],
+              Consumer<PublishesProvider>(
+                builder: (_,pubProv,__) => TopAuthorsList(
+                  authors: pubProv.authors,
+                )
               ),
 
-              SizedBox(height: 20),
+              SizedBox(height: 10),
 
               //Collections Container
               BookCollectionsSheet()

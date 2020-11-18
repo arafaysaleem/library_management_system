@@ -19,6 +19,8 @@ class GenresProvider with ChangeNotifier {
 
   UnmodifiableListView<Genre> get genres => UnmodifiableListView(_genres.values);
 
+  int get activeGenreId => genres[_activeIndex].id;
+
   void _initializeData() {
     _initializeGenresMap();
   }
