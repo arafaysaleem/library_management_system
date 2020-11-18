@@ -42,7 +42,7 @@ class GenresProvider with ChangeNotifier {
   }
 
   Future<List<Genre>> getBookGenres(int bkId) async {
-    List<Genre> bookGenres;
+    List<Genre> bookGenres=[];
     //Future based
     await for (List<int> genreIds in _dataRepository.bookGenresStream(id: bkId)) {
       genreIds.forEach((gId) => bookGenres.add(_genres[gId]));
@@ -53,7 +53,7 @@ class GenresProvider with ChangeNotifier {
   }
 
   Future<List<Genre>> getAuthorGenres(int aId) async {
-    List<Genre> authorGenres;
+    List<Genre> authorGenres=[];
     //Future based
     await for (List<int> genreIds in _dataRepository.authorGenresStream(id: aId)) {
       genreIds.forEach((gId) => authorGenres.add(_genres[gId]));

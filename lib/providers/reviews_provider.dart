@@ -11,7 +11,7 @@ class ReviewsProvider with ChangeNotifier {
   ReviewsProvider({@required dataRepository}) : _dataRepository = dataRepository;
 
   Future<List<BookReview>> getBookReviews(int bkId) async {
-    List<BookReview> bookReviews;
+    List<BookReview> bookReviews=[];
     //Future based
     await for (List<BookReview> bkReviews in _dataRepository.bookReviewsStream(id: bkId)) {
       bookReviews.addAll(bkReviews);
@@ -24,7 +24,7 @@ class ReviewsProvider with ChangeNotifier {
   }
 
   Future<List<AuthorReview>> getAuthorReviews(int aId) async {
-    List<AuthorReview> authorReviews;
+    List<AuthorReview> authorReviews=[];
     //Future based
     await for (List<AuthorReview> aReviews in _dataRepository.authorReviewsStream(id: aId)) {
       authorReviews.addAll(aReviews);

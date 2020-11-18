@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:library_management_system/services/repositories/data_repository.dart';
+import 'package:library_management_system/providers/book_details_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../../../utils/helper.dart';
 
@@ -16,6 +17,7 @@ class TopAuthorsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<BookDetailsProvider>(context, listen: false);
     return SizedBox(
       height: 110,
       child: ListView.builder(
@@ -28,9 +30,7 @@ class TopAuthorsList extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: Helper.hPadding),
           child: InkWell(
             onTap: () async {
-              final repo = DataRepository.instance;
-              final book = await repo.bookStream(id: 41).first;
-              print(book);
+              print(await provider.getBookDetails(66));
             },
             child: Column(
               children: [
@@ -38,8 +38,9 @@ class TopAuthorsList extends StatelessWidget {
                   width: 80,
                   height: 80,
                   decoration: BoxDecoration(
-                      color: Colors.primaries[i % Colors.primaries.length],
-                      shape: BoxShape.circle),
+                    color: Colors.primaries[i % Colors.primaries.length],
+                    shape: BoxShape.circle,
+                  ),
                 ),
                 SizedBox(height: 5),
                 Text(
