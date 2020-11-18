@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:library_management_system/models/book.dart';
 import 'package:provider/provider.dart';
 
 import '../../../providers/publishes_provider.dart';
 
 import '../../../utils/enums/page_type_enum.dart';
 import '../../../utils/helper.dart';
+
+import '../../../models/book.dart';
 
 class GenreBooksList extends StatelessWidget {
   final int gId;
@@ -16,8 +17,8 @@ class GenreBooksList extends StatelessWidget {
   Widget build(BuildContext context) {
     return StreamBuilder<List<Book>>(
       stream: Provider.of<PublishesProvider>(context, listen: false).getGenreBooks(gId),
-      builder: (ctx,snapshot) {
-        if(snapshot.hasData){
+      builder: (ctx, snapshot) {
+        if (snapshot.hasData) {
           final genreBooks = snapshot.data;
           return ListView.separated(
             itemCount: genreBooks.length,
@@ -49,7 +50,9 @@ class GenreBooksList extends StatelessWidget {
             ),
           );
         }
-        return Center(child: CircularProgressIndicator(),);
+        return Center(
+          child: CircularProgressIndicator(),
+        );
       },
     );
   }
@@ -77,13 +80,13 @@ class GenresBooksListItem extends StatelessWidget {
         children: [
           //Container box
           Container(
-            height: 130,
-            width: 110,
+            height: 160,
+            width: 115,
             decoration: BoxDecoration(
               image: DecorationImage(
-                  image: NetworkImage(bookImageUrl),
-                  fit: BoxFit.cover,
-                ),
+                image: NetworkImage(bookImageUrl),
+                fit: BoxFit.fill,
+              ),
               borderRadius: BorderRadius.circular(20),
             ),
           ),
@@ -104,7 +107,7 @@ class GenresBooksListItem extends StatelessWidget {
                 ),
               ),
 
-              SizedBox(height: 0),
+              SizedBox(height: 8),
 
               //Book Title
               SizedBox(

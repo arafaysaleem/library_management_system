@@ -16,7 +16,9 @@ class BookListingsSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final genreProvider = Provider.of<GenresProvider>(context, listen: false);
+
     return Selector<GenresProvider, int>(
       selector: (ctx, genreProv) => genreProv.genres.length,
       builder: (ctx, noOfGenres, _) => Expanded(
