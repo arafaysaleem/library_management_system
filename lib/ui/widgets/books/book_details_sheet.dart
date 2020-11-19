@@ -2,24 +2,27 @@ import 'package:flutter/material.dart';
 
 import '../../../utils/helper.dart';
 
+import '../../../models/author.dart';
+import '../../../models/genre.dart';
+
 class BookDetailsSheet extends StatelessWidget {
-  final Color color;
   final String bookTitle;
-  final String bookAuthor;
+  final List<Author> bookAuthor;
   final String bookPublishedDate;
+  final String bookImageUrl;
   final String bookBio;
   final int bookRating;
-  final List<String> genres;
+  final List<Genre> genres;
 
   const BookDetailsSheet({
     Key key,
-    @required this.color,
     @required this.bookTitle,
     @required this.bookAuthor,
     @required this.bookPublishedDate,
     @required this.bookBio,
     @required this.bookRating,
     @required this.genres,
+    @required this.bookImageUrl,
   }) : super(key: key);
 
   @override
@@ -49,7 +52,7 @@ class BookDetailsSheet extends StatelessWidget {
             height: 220,
             width: 170,
             decoration: BoxDecoration(
-              color: color,
+              image: DecorationImage(image: NetworkImage(bookImageUrl)),
               borderRadius: BorderRadius.circular(20),
             ),
           ),
@@ -72,18 +75,28 @@ class BookDetailsSheet extends StatelessWidget {
             fontWeight: FontWeight.w600,
             fontSize: 28,
           ),
+          textAlign: TextAlign.center,
         ),
 
         SizedBox(height: 5),
 
         //Book author
-        Text(
-          bookAuthor,
-          style: TextStyle(
-            color: Colors.grey[700],
-            fontSize: 16,
-            fontWeight: FontWeight.w400,
-          ),
+        Wrap(
+          alignment: WrapAlignment.center,
+          spacing: 10,
+          runSpacing: 10,
+          children: bookAuthor
+              .map(
+                (author) => Text(
+                  "${author.firstName} ${author.lastName}",
+                  style: TextStyle(
+                    color: Colors.grey[700],
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              )
+              .toList(),
         ),
 
         SizedBox(height: 10),
@@ -96,11 +109,11 @@ class BookDetailsSheet extends StatelessWidget {
         SizedBox(height: 10),
 
         //Book ratings
-        buildRatings(),
+        Helper.buildRatings(bookRating),
 
         SizedBox(height: 15),
 
-        buildGenres(context),
+        Helper.buildGenres(Theme.of(context).primaryColor,genres),
 
         SizedBox(height: 15),
 
@@ -112,63 +125,6 @@ class BookDetailsSheet extends StatelessWidget {
             color: Colors.black45,
           ),
         ),
-      ],
-    );
-  }
-
-  Wrap buildGenres(BuildContext context) {
-    return Wrap(
-      alignment: WrapAlignment.center,
-      spacing: 10,
-      runSpacing: 10,
-      children: [
-        ...genres
-            .map(
-              (genre) => Chip(
-                elevation: 0,
-                backgroundColor: Colors.white,
-                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                padding: EdgeInsets.zero,
-                labelPadding: const EdgeInsets.symmetric(horizontal: 10),
-                label: Text(genre),
-                labelStyle: TextStyle(
-                  color: Theme.of(context).primaryColor,
-                  fontSize: 12,
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                  side: BorderSide(
-                    color: Theme.of(context).primaryColor,
-                    width: 1,
-                  ),
-                ),
-              ),
-            )
-            .toList(),
-      ],
-    );
-  }
-
-  Row buildRatings() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        //Rating stars
-        for (int i = 0; i < bookRating; i++)
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 3),
-            child: Icon(
-              Icons.star,
-              color: Colors.amber[700],
-            ),
-          ),
-
-        //Empty stars
-        for (int i = bookRating; i < 5; i++)
-          Icon(
-            Icons.star,
-            color: Colors.grey[300],
-          ),
       ],
     );
   }

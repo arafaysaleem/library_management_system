@@ -25,26 +25,19 @@ class BookDetailsProvider with ChangeNotifier {
 
   /// Fetch bookDetails for bookId
   Future<BookDetails> getBookDetails(int bkId) async {
-    final results = await Future.wait([
-      _publishesProvider.getBookAuthors(bkId),
-      _genresProvider.getBookGenres(bkId),
-      _reviewsProvider.getBookReviews(bkId)
-    ]);
+    List<Author> bookAuthors;
+    List<Genre> bookGenres;
+    List<BookReview> bookReviews;
 
     /// get and store the book for bkId from _publishesProvider
     final Book book = _publishesProvider.getBook(bkId);
 
-    /// get and store list of Authors for bookId from _publishesProvider,
-    final bookAuthors = List<Author>.from(results[0]);
+    await Future.wait<void>([
+      (() async => bookAuthors = await _publishesProvider.getBookAuthors(bkId))(),
+      (() async => bookGenres = await _genresProvider.getBookGenres(bkId))(),
+      (() async => bookReviews = await _reviewsProvider.getBookReviews(bkId))(),
+    ]);
 
-    /// get and store list of Genres for bookId from _genreProvider,
-    final bookGenres = List<Genre>.from(results[1]);
-
-    /// then fetch and store list of BookReviews,
-    final bookReviews = List<BookReview>.from(results[2]);
-
-    /// then pass these lists and book into constructor for BookDetails,
-    /// store bookDetails object at bookId into _bookDetails
     return BookDetails(
       genres: bookGenres,
       authors: bookAuthors,

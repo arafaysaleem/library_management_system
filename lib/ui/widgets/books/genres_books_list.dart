@@ -28,18 +28,11 @@ class GenreBooksList extends StatelessWidget {
             ),
             itemBuilder: (ctx, i) => InkWell(
               onTap: () {
-                Helper.navigateToPage(context: context, page: PageType.BOOK, arguments: {
-                  "color": Colors.green,
-                  "bk_title": "Book Title 1",
-                  "bk_author": "Book Author 1",
-                  "bk_rating": 1,
-                  "published_date": "10/12/2020",
-                  "bk_bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
-                      " ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco"
-                      " laboris nisi ut aliquip ex ea commodo consequat.Lorem ipsum dolor sit amet, consectetur "
-                      "adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                  "genres": ['Horror', 'Fantasy', 'Sci-Fi', 'Romance', 'Mystery']
-                });
+                Helper.navigateToPage(
+                  context: context,
+                  page: PageType.BOOK,
+                  arguments: genreBooks[i].id,
+                );
               },
               child: GenresBooksListItem(
                 bookPublishedDate: Helper.datePresenter(genreBooks[i].publishedDate),

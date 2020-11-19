@@ -15,29 +15,28 @@ class GenresList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<GenresProvider>(
-      builder: (ctx, genreProvider, _) => SizedBox(
-        height: 34,
-        child: ListView.builder(
-          physics: BouncingScrollPhysics(),
-          scrollDirection: Axis.horizontal,
-          itemCount: genreProvider.genres.length,
-          itemBuilder: (ctx, i) {
-            return GenreListItem(
-              onTap: () {
-                if (genreProvider.isActiveIndex(i)) return;
-                genreProvider.setActiveIndex(i);
-                genreController.animateToPage(
-                  i,
-                  duration: Duration(milliseconds: 300),
-                  curve: Curves.linear,
-                );
-              },
-              genreName: genreProvider.genres[i].name,
-              active: genreProvider.isActiveIndex(i),
-            );
-          },
-        ),
+    final genreProvider = Provider.of<GenresProvider>(context,listen: false);
+    return SizedBox(
+      height: 34,
+      child: ListView.builder(
+        physics: BouncingScrollPhysics(),
+        scrollDirection: Axis.horizontal,
+        itemCount: genreProvider.genres.length,
+        itemBuilder: (ctx, i) {
+          return GenreListItem(
+            onTap: () {
+              if (genreProvider.isActiveIndex(i)) return;
+              genreProvider.setActiveIndex(i);
+              genreController.animateToPage(
+                i,
+                duration: Duration(milliseconds: 300),
+                curve: Curves.linear,
+              );
+            },
+            genreName: genreProvider.genres[i].name,
+            active: genreProvider.isActiveIndex(i),
+          );
+        },
       ),
     );
   }

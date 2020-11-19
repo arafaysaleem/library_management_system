@@ -13,7 +13,7 @@ class GenreBooksScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final genreProvider = Provider.of<GenresProvider>(context, listen: false);
+    final genreProvider = Provider.of<GenresProvider>(context);
     return Scaffold(
       body: SafeArea(
         child: genreProvider.genres.isEmpty

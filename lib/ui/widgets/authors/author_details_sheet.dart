@@ -102,7 +102,7 @@ class AuthorDetailsSheet extends StatelessWidget {
 
         SizedBox(height: 15),
 
-        Helper.buildGenres(context,genres),
+        Helper.buildGenres(Theme.of(context).primaryColor,genres),
 
         SizedBox(height: 15),
 
