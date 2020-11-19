@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../../../utils/helper.dart';
 
+import '../../../utils/enums/page_type_enum.dart';
+
+import '../../../models/book.dart';
 import '../../../models/genre.dart';
 
 class AuthorDetailsSheet extends StatelessWidget {
@@ -11,6 +14,7 @@ class AuthorDetailsSheet extends StatelessWidget {
   final String authorCountry;
   final int authorRating;
   final List<Genre> genres;
+  final List<Book> books;
 
   const AuthorDetailsSheet({
     Key key,
@@ -20,13 +24,13 @@ class AuthorDetailsSheet extends StatelessWidget {
     @required this.authorCountry,
     @required this.authorRating,
     @required this.genres,
+    @required this.books,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-
         // White Details Card
         Positioned.fill(
           top: 60,
@@ -102,10 +106,81 @@ class AuthorDetailsSheet extends StatelessWidget {
 
         SizedBox(height: 15),
 
-        Helper.buildGenres(Theme.of(context).primaryColor,genres),
+        Helper.buildGenres(Theme.of(context).primaryColor, genres),
+
+        SizedBox(height: 25),
+
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              "Published Books",
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+            ),
+            FlatButton(
+              onPressed: () => Helper.navigateToPage(
+                context: context,
+                page: PageType.AUTHORBOOKS,
+                arguments: books,
+              ),
+              color: Theme.of(context).primaryColor.withOpacity(0.2),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+              child: Text("View all"),
+            ),
+          ],
+        ),
 
         SizedBox(height: 15),
 
+        SizedBox(
+            height: 220,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                for (int i = 0; i < (books.length == 1 ? 1 : 2); i++)
+                  SizedBox(
+                    width: 120,
+                    child: Column(
+                      children: [
+                        Container(
+                          height: 160,
+                          width: 115,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: NetworkImage(books[i].imageUrl),
+                              fit: BoxFit.fill,
+                            ),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+
+                        SizedBox(height: 5),
+
+                        //Book name
+                        Text(
+                          books[i].name,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 12,
+                          ),
+                          textAlign: TextAlign.center,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+
+                        SizedBox(height: 2),
+
+                        //Book ratings
+                        Helper.buildRatings(books[i].rating, size: 18),
+                      ],
+                    ),
+                  ),
+              ],
+            )),
       ],
     );
   }

@@ -1,58 +1,45 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import '../../../providers/publishes_provider.dart';
+import '../../../utils/helper.dart';
 
 import '../../../utils/enums/page_type_enum.dart';
-import '../../../utils/helper.dart';
 
 import '../../../models/book.dart';
 
-class GenreBooksList extends StatelessWidget {
-  final int gId;
+class BooksList extends StatelessWidget {
+  final List<Book> books;
 
-  const GenreBooksList({Key key, @required this.gId}) : super(key: key);
+  const BooksList({Key key, @required this.books}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<List<Book>>(
-      stream: Provider.of<PublishesProvider>(context, listen: false).getGenreBooks(gId),
-      builder: (ctx, snapshot) {
-        if (snapshot.hasData) {
-          final genreBooks = snapshot.data;
-          return ListView.separated(
-            itemCount: genreBooks.length,
-            separatorBuilder: (ctx, i) => Divider(
-              thickness: 1,
-              height: 36,
-            ),
-            itemBuilder: (ctx, i) => InkWell(
-              onTap: () {
-                Helper.navigateToPage(
-                  context: context,
-                  page: PageType.BOOK,
-                  arguments: genreBooks[i].id,
-                );
-              },
-              child: GenresBooksListItem(
-                bookPublishedDate: Helper.datePresenter(genreBooks[i].publishedDate),
-                bookTitle: genreBooks[i].name,
-                bookRating: genreBooks[i].rating,
-                bookImageUrl: genreBooks[i].imageUrl,
-              ),
-            ),
+    return ListView.separated(
+      itemCount: books.length,
+      separatorBuilder: (ctx, i) => Divider(
+        thickness: 1,
+        height: 36,
+      ),
+      itemBuilder: (ctx, i) => InkWell(
+        onTap: () {
+          Helper.navigateToPage(
+            context: context,
+            page: PageType.BOOK,
+            arguments: books[i].id,
           );
-        }
-        return Center(
-          child: CircularProgressIndicator(),
-        );
-      },
+        },
+        child: BooksListItem(
+          bookPublishedDate: Helper.datePresenter(books[i].publishedDate),
+          bookTitle: books[i].name,
+          bookRating: books[i].rating,
+          bookImageUrl: books[i].imageUrl,
+        ),
+      ),
     );
   }
 }
 
-class GenresBooksListItem extends StatelessWidget {
-  const GenresBooksListItem({
+class BooksListItem extends StatelessWidget {
+  const BooksListItem({
     Key key,
     @required this.bookRating,
     @required this.bookPublishedDate,
@@ -68,7 +55,7 @@ class GenresBooksListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: Helper.hPadding),
+      padding: EdgeInsets.fromLTRB(Helper.hPadding, Helper.hPadding, Helper.hPadding, 0),
       child: Row(
         children: [
           //Book Image
