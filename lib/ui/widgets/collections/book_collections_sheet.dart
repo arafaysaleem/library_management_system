@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../../../providers/publishes_provider.dart';
@@ -41,18 +43,22 @@ class BookCollectionsSheet extends StatelessWidget {
           SizedBox(height: 10),
 
           //New collections list
-          StreamBuilder<List<Book>>(
-            stream: Provider.of<PublishesProvider>(context,listen: false).getTop5NewBooks(),
-            initialData: [],
-            builder: (ctx, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done)
-                return BookCollectionList(
-                  books: snapshot.data,
+          Consumer<PublishesProvider>(
+            builder: (ctx, pubProv, child) => StreamBuilder<List<Book>>(
+              stream: pubProv.getTop5NewBooks(),
+              initialData: [Book.initialData()],
+              builder: (ctx, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  if (snapshot.data[0] != null)
+                    return BookCollectionList(
+                      books: snapshot.data,
+                    );
+                }
+                return Center(
+                  child: CircularProgressIndicator(),
                 );
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            },
+              },
+            ),
           ),
 
           SizedBox(height: 20),
@@ -63,17 +69,22 @@ class BookCollectionsSheet extends StatelessWidget {
           SizedBox(height: 10),
 
           //Top Rated list
-          StreamBuilder<List<Book>>(
-            stream: Provider.of<PublishesProvider>(context,listen: false).getTop5RatedBooks(),
-            builder: (ctx, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done)
-                return BookCollectionList(
-                  books: snapshot.data,
+          Consumer<PublishesProvider>(
+            builder: (ctx, pubProv, child) => StreamBuilder<List<Book>>(
+              stream: pubProv.getTop5RatedBooks(),
+              initialData: [Book.initialData()],
+              builder: (ctx, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  if (snapshot.data[0] != null)
+                    return BookCollectionList(
+                      books: snapshot.data,
+                    );
+                }
+                return Center(
+                  child: CircularProgressIndicator(),
                 );
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            },
+              },
+            ),
           ),
 
           SizedBox(height: 20),

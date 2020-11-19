@@ -7,6 +7,8 @@ import '../../../utils/helper.dart';
 
 import '../../../utils/enums/page_type_enum.dart';
 
+import '../common/ratings.dart';
+
 class AuthorsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -93,7 +95,7 @@ class AuthorsListItem extends StatelessWidget {
               SizedBox(height: 10),
 
               //Author rating
-              Helper.buildRatings(authorRating),
+              Ratings(rating: authorRating),
             ],
           ),
 

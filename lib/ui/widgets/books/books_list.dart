@@ -6,6 +6,8 @@ import '../../../utils/enums/page_type_enum.dart';
 
 import '../../../models/book.dart';
 
+import '../common/ratings.dart';
+
 class BooksList extends StatelessWidget {
   final List<Book> books;
 
@@ -113,7 +115,7 @@ class BooksListItem extends StatelessWidget {
               SizedBox(height: 10),
 
               //Book rating
-              Helper.buildRatings(bookRating),
+              Ratings(rating: bookRating),
             ],
           ),
 

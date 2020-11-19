@@ -5,6 +5,9 @@ import '../../../utils/helper.dart';
 import '../../../models/author.dart';
 import '../../../models/genre.dart';
 
+import '../common/genre_chips.dart';
+import '../common/ratings.dart';
+
 class BookDetailsSheet extends StatelessWidget {
   final String bookTitle;
   final List<Author> bookAuthor;
@@ -109,11 +112,11 @@ class BookDetailsSheet extends StatelessWidget {
         SizedBox(height: 10),
 
         //Book ratings
-        Helper.buildRatings(bookRating),
+        Ratings(rating: bookRating),
 
         SizedBox(height: 15),
 
-        Helper.buildGenres(Theme.of(context).primaryColor,genres),
+        GenreChips(color: Theme.of(context).primaryColor,genres: genres),
 
         SizedBox(height: 15),
 

@@ -8,6 +8,8 @@ import '../../../utils/helper.dart';
 
 import '../../../models/book.dart';
 
+import '../common/ratings.dart';
+
 class GenreBooksList extends StatelessWidget {
   final int gId;
 
@@ -126,7 +128,7 @@ class GenresBooksListItem extends StatelessWidget {
               SizedBox(height: 10),
 
               //Book rating
-              Helper.buildRatings(bookRating),
+              Ratings(rating: bookRating),
             ],
           ),
 

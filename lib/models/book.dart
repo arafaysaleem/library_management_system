@@ -38,6 +38,17 @@ class Book {
   
   DateTime get publishedDate => _publishedDate;
 
+  factory Book.initialData(){
+    return Book(
+      id: 0,
+      name: '',
+      imageUrl: Helper.bookPlaceholder,
+      publishedDate: null,
+      rating: 0,
+      bio: ''
+    );
+  }
+
   Book.fromJson(Map<String, dynamic> json) {
     _id = json['bk_id'] as int;
     _name = json['bk_name'] as String;

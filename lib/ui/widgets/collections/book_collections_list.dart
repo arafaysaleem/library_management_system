@@ -11,7 +11,7 @@ class BookCollectionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return books.isEmpty ? CircularProgressIndicator() : SizedBox(
+    return SizedBox(
       height: 200,
       child: ListView.builder(
         physics: BouncingScrollPhysics(),

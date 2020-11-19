@@ -7,6 +7,9 @@ import '../../../utils/enums/page_type_enum.dart';
 import '../../../models/book.dart';
 import '../../../models/genre.dart';
 
+import '../common/genre_chips.dart';
+import '../common/ratings.dart';
+
 class AuthorDetailsSheet extends StatelessWidget {
   final String authorImageUrl;
   final String authorName;
@@ -102,11 +105,11 @@ class AuthorDetailsSheet extends StatelessWidget {
         SizedBox(height: 10),
 
         //Author ratings
-        Helper.buildRatings(authorRating),
+        Ratings(rating: authorRating),
 
         SizedBox(height: 15),
 
-        Helper.buildGenres(Theme.of(context).primaryColor, genres),
+        GenreChips(color: Theme.of(context).primaryColor, genres: genres),
 
         SizedBox(height: 25),
 
@@ -175,7 +178,7 @@ class AuthorDetailsSheet extends StatelessWidget {
                         SizedBox(height: 2),
 
                         //Book ratings
-                        Helper.buildRatings(books[i].rating, size: 18),
+                        Ratings(rating: books[i].rating, size: 18),
                       ],
                     ),
                   ),
