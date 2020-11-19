@@ -12,7 +12,7 @@ class Helper {
   }
 
   static String dateSerializer(DateTime date) {
-    return DateFormat('yyyy-MM-dd').format(date);
+    return DateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").format(date);
   }
 
   static DateTime dateDeserializer(String iso8601date) {

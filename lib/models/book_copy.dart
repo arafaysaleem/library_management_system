@@ -6,6 +6,20 @@ class BookCopy{
 
   BookCopy({@required copyId,@required bkId}) : _copyId = copyId, _bkId = bkId;
 
+  factory BookCopy.fromJson(Map<String, dynamic> json) {
+    return new BookCopy(
+      copyId: json['copy_id'] as int,
+      bkId: json['bk_id'] as int,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'copy_id': this._copyId,
+      'bk_id': this._bkId,
+    };
+  }
+
   int get copyId => _copyId;
 
   int get bkId => _bkId;
@@ -24,4 +38,5 @@ class BookCopy{
   String toString() {
     return 'BookCopy{copyId: $_copyId, bkId: $_bkId}';
   }
+
 }

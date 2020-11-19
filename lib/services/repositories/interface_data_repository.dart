@@ -1,4 +1,6 @@
 import 'package:flutter/foundation.dart';
+import 'package:library_management_system/models/book_copy.dart';
+import 'package:library_management_system/models/member_book_issue.dart';
 
 import '../../models/author.dart';
 import '../../models/book.dart';
@@ -47,4 +49,10 @@ abstract class IDataRepository {
   Stream<List<int>> bookAuthorsStream({@required int id});
 
   Stream<List<int>> authorBooksStream({@required int id});
+
+  Stream<List<BookCopy>> bookCopiesStream({@required int id});
+
+  Stream<List<MemberBookIssue>> bookMemberIssuesStream({@required int id});
+
+  Stream<List<MemberBookIssue>> memberBookIssuesStream({@required int id});
 }

@@ -15,10 +15,12 @@ class BookCollectionsSheet extends StatelessWidget {
   Padding buildCollectionName(String text, context, {author = false}) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: Helper.hPadding),
-      child: Text("$text",
-          style: author
-              ? TextStyle(color: Colors.white, fontSize: 20)
-              : Theme.of(context).textTheme.headline3),
+      child: Text(
+        "$text",
+        style: author
+            ? TextStyle(color: Colors.white, fontSize: 20)
+            : Theme.of(context).textTheme.headline3,
+      ),
     );
   }
 
