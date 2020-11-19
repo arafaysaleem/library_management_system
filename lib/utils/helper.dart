@@ -22,7 +22,7 @@ class Helper {
     return DateFormat('dd-MM-yyyy').format(date);
   }
 
-  static Row buildRatings(int rating) {
+  static Row buildRatings(int rating,{double size = 24}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -33,6 +33,7 @@ class Helper {
                 i == 0 ? const EdgeInsets.only(right: 3) : const EdgeInsets.symmetric(horizontal: 3),
             child: Icon(
               Icons.star,
+              size: size,
               color: Colors.amber[700],
             ),
           ),
@@ -44,6 +45,7 @@ class Helper {
                 i == 0 ? const EdgeInsets.only(right: 3) : const EdgeInsets.symmetric(horizontal: 3),
             child: Icon(
               Icons.star,
+              size: size,
               color: Colors.grey[300],
             ),
           ),
