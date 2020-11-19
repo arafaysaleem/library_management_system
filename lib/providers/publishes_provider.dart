@@ -84,4 +84,24 @@ class PublishesProvider with ChangeNotifier {
       ).toList();
     });
   }
+
+  Stream<List<Book>> getTop5RatedBooks() {
+    return _dataRepository.top5RatedBooksStream().map<List<Book>>((bookIds) {
+      return bookIds.map(
+            (bkId) {
+          return _books[bkId];
+        },
+      ).toList();
+    });
+  }
+
+  Stream<List<Book>> getTop5NewBooks() {
+    return _dataRepository.top5NewBooksStream().map<List<Book>>((bookIds) {
+      return bookIds.map(
+            (bkId) {
+          return _books[bkId];
+        },
+      ).toList();
+    });
+  }
 }
