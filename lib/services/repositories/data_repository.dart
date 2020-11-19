@@ -179,4 +179,18 @@ class DataRepository implements IDataRepository {
       builder: (data) => data["bk_id"],
     );
   }
+
+  Stream<List<int>> top5RatedBooksStream() {
+    return _apiService.collectionStream<int>(
+      endPoint: EndPoint.TOP5RATED_BOOKS,
+      builder: (data) => data["bk_id"],
+    );
+  }
+
+  Stream<List<int>> top5NewBooksStream() {
+    return _apiService.collectionStream<int>(
+      endPoint: EndPoint.TOP5NEW_BOOKS,
+      builder: (data) => data["bk_id"],
+    );
+  }
 }

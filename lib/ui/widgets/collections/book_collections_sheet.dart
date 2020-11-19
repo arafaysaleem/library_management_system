@@ -1,11 +1,15 @@
-import 'package:flutter/material.dart'
-;
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../../providers/publishes_provider.dart';
+
 import '../../../utils/helper.dart';
+
+import '../../../models/book.dart';
 
 import 'book_collections_list.dart';
 
 class BookCollectionsSheet extends StatelessWidget {
-
   Padding buildCollectionName(String text, context, {author = false}) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: Helper.hPadding),
@@ -37,8 +41,18 @@ class BookCollectionsSheet extends StatelessWidget {
           SizedBox(height: 10),
 
           //New collections list
-          BookCollectionList(
-            books: [1, 2, 3, 4],
+          StreamBuilder<List<Book>>(
+            stream: Provider.of<PublishesProvider>(context,listen: false).getTop5NewBooks(),
+            initialData: [],
+            builder: (ctx, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done)
+                return BookCollectionList(
+                  books: snapshot.data,
+                );
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            },
           ),
 
           SizedBox(height: 20),
@@ -49,8 +63,17 @@ class BookCollectionsSheet extends StatelessWidget {
           SizedBox(height: 10),
 
           //Top Rated list
-          BookCollectionList(
-            books: [1, 2, 3, 4],
+          StreamBuilder<List<Book>>(
+            stream: Provider.of<PublishesProvider>(context,listen: false).getTop5RatedBooks(),
+            builder: (ctx, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done)
+                return BookCollectionList(
+                  books: snapshot.data,
+                );
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            },
           ),
 
           SizedBox(height: 20),
