@@ -14,6 +14,8 @@ import '../../models/author_review.dart';
 import '../../models/book_review.dart';
 import '../../models/member_author_review.dart';
 import '../../models/member_book_review.dart';
+import '../../models/book_copy.dart';
+import '../../models/member_book_issue.dart';
 
 class DataRepository implements IDataRepository {
   DataRepository._();
@@ -191,6 +193,64 @@ class DataRepository implements IDataRepository {
     return _apiService.collectionStream<int>(
       endPoint: EndPoint.TOP5NEW_BOOKS,
       builder: (data) => data["bk_id"],
+    );
+  }
+
+  Stream<List<MemberBookIssue>> bookMemberIssuesStream({@required int id}) {
+    return _apiService.collectionStream<MemberBookIssue>(
+      endPoint: EndPoint.BOOK_MEMBER_ISSUES,
+      id: id.toString(),
+      builder: (data) => MemberBookIssue.fromJson(data),
+    );
+  }
+
+  Stream<List<MemberBookIssue>> memberBookIssuesStream({@required int id}) {
+    return _apiService.collectionStream<MemberBookIssue>(
+      endPoint: EndPoint.MEMBER_BOOK_ISSUES,
+      id: id.toString(),
+      builder: (data) => MemberBookIssue.fromJson(data),
+    );
+  }
+
+  Stream<List<BookCopy>> bookCopiesStream({@required int id}) {
+    return _apiService.collectionStream<BookCopy>(
+      endPoint: EndPoint.BOOK_COPIES,
+      id: id.toString(),
+      builder: (data) => BookCopy.fromJson(data),
+    );
+  }
+
+  Future<int> copyIssuesCount({@required int id}) async {
+    return await _apiService.documentFuture<int>(
+      endPoint: EndPoint.COPY_ISSUES_COUNT,
+      id: id.toString(),
+      builder: (data) => data["count_issues"],
+    );
+  }
+
+  Future<int> addBookIssue({@required Map<String, dynamic> data}) async {
+    return await _apiService.setData(
+      endPoint: EndPoint.BOOK_COPIES_ISSUES,
+      data: data,
+      builder: (response) => response["issue_id"],
+    );
+  }
+
+  Future<int> createAccount({@required Map<String, dynamic> data}) async {
+    return await _apiService.setData(
+      endPoint: EndPoint.MEMBERS,
+      data: data,
+      builder: (response) => response["m_id"],
+    );
+  }
+
+  Future<int> changeAccountData({@required Map<String, dynamic> data, @required int id}) async {
+    print(data);
+    return await _apiService.updateData(
+      endPoint: EndPoint.MEMBERS,
+      id: id.toString(),
+      data: data,
+      builder: (response) => response["m_id"],
     );
   }
 }

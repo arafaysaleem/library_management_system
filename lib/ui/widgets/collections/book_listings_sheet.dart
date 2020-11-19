@@ -6,17 +6,23 @@ import '../../../providers/genres_provider.dart';
 import '../common/search_textfield.dart';
 import '../books/genres_books_list.dart';
 
-class BookListingsSheet extends StatelessWidget {
+class BookListingsSheet extends StatefulWidget {
   final PageController genreController;
 
-  const BookListingsSheet({
+  BookListingsSheet({
     Key key,
     @required this.genreController,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  _BookListingsSheetState createState() => _BookListingsSheetState();
+}
 
+class _BookListingsSheetState extends State<BookListingsSheet> {
+  final TextEditingController _textEditingController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
     final genreProvider = Provider.of<GenresProvider>(context, listen: false);
 
     return Selector<GenresProvider, int>(
@@ -40,6 +46,8 @@ class BookListingsSheet extends StatelessWidget {
                 fillColor: Colors.blueGrey[50],
                 inputTextColor: Theme.of(context).primaryColor,
                 hintTextColor: Colors.black38,
+                controller: _textEditingController,
+                onChanged: (val) => setState(() {}),
               ),
 
               SizedBox(height: 20),
@@ -47,10 +55,13 @@ class BookListingsSheet extends StatelessWidget {
               //Books list
               Expanded(
                 child: PageView.builder(
-                  controller: genreController,
+                  controller: widget.genreController,
                   itemCount: noOfGenres,
                   onPageChanged: genreProvider.setActiveIndex,
-                  itemBuilder: (ctx, i) => GenreBooksList(gId: genreProvider.activeGenreId),
+                  itemBuilder: (ctx, i) => GenreBooksList(
+                    gId: genreProvider.activeGenreId,
+                    searchTerm: _textEditingController.text.trim(),
+                  ),
                 ),
               )
             ],

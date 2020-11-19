@@ -6,12 +6,16 @@ class SearchTextField extends StatelessWidget {
   final fillColor;
   final hintTextColor;
   final inputTextColor;
+  final controller;
+  final Function(String val) onChanged;
 
   const SearchTextField({
     Key key,
     @required this.fillColor,
     @required this.hintTextColor,
     @required this.inputTextColor,
+    @required this.controller,
+    @required this.onChanged,
   }) : super(key: key);
 
   @override
@@ -19,12 +23,12 @@ class SearchTextField extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: Helper.hPadding),
       child: TextField(
-        onChanged: (val) {},
+        onChanged: onChanged,
         keyboardType: TextInputType.name,
+        controller: controller,
         cursorColor: Theme.of(context).primaryColor,
         maxLines: 1,
         textInputAction: TextInputAction.search,
-        onSubmitted: (val) {},
         style: TextStyle(color: inputTextColor),
         decoration: InputDecoration(
             contentPadding: const EdgeInsets.all(17),

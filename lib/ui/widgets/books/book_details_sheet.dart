@@ -34,7 +34,7 @@ class BookDetailsSheet extends StatelessWidget {
       children: [
         // White Details Card
         Positioned.fill(
-          top: 60,
+          top: 65,
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: Helper.hPadding),
             decoration: BoxDecoration(
@@ -52,10 +52,13 @@ class BookDetailsSheet extends StatelessWidget {
         Align(
           alignment: Alignment.topCenter,
           child: Container(
-            height: 220,
-            width: 170,
+            height: 230,
+            width: 155,
             decoration: BoxDecoration(
-              image: DecorationImage(image: NetworkImage(bookImageUrl)),
+              image: DecorationImage(
+                image: NetworkImage(bookImageUrl),
+                fit: BoxFit.fill,
+              ),
               borderRadius: BorderRadius.circular(20),
             ),
           ),
@@ -116,7 +119,7 @@ class BookDetailsSheet extends StatelessWidget {
 
         SizedBox(height: 15),
 
-        GenreChips(color: Theme.of(context).primaryColor,genres: genres),
+        GenreChips(color: Theme.of(context).primaryColor, genres: genres),
 
         SizedBox(height: 15),
 

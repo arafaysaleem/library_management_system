@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 
 class BottomButtonBar extends StatelessWidget {
   final String label;
+  final Color color;
   final VoidCallback onPressed;
 
   const BottomButtonBar({
     Key key,
     @required this.label,
     @required this.onPressed,
+    this.color = Colors.green,
   }) : super(key: key);
 
   @override
@@ -18,14 +20,17 @@ class BottomButtonBar extends StatelessWidget {
       child: FlatButton(
         padding: const EdgeInsets.symmetric(vertical: 16),
         onPressed: onPressed,
-        color: Colors.green[500],
+        color: color,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
         ),
         child: Text(
           label,
-          style:
-              TextStyle(letterSpacing: 1.4, fontSize: 15, color: Colors.white),
+          style: TextStyle(
+            letterSpacing: 1.4,
+            fontSize: 15,
+            color: Colors.white,
+          ),
         ),
       ),
     );

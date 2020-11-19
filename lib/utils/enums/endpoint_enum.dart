@@ -19,15 +19,19 @@ enum EndPoint {
   AUTHOR_BOOKS,
   TOP5RATED_BOOKS,
   TOP5NEW_BOOKS,
-  COPY_ISSUES,
-  MEMBER_ISSUES,
+  BOOK_MEMBER_ISSUES,
+  MEMBER_BOOK_ISSUES,
+  BOOK_COPIES_ISSUES,
+  BOOK_COPIES,
+  COPY_ISSUES_COUNT,
+  SIGN_UP,
 }
 
 extension GetEndPointPath on EndPoint {
   String get name => describeEnum(this);
 
   String get package => "pkg";
-  
+
   String getPath({@required String id}) {
     switch (this) {
       case EndPoint.BOOKS:
@@ -66,10 +70,16 @@ extension GetEndPointPath on EndPoint {
         return "$package/book_top_5_rated/";
       case EndPoint.TOP5NEW_BOOKS:
         return "$package/book_new_5_collection/";
-      case EndPoint.COPY_ISSUES:
-        return "$package/book_copies_issues/copy_id/$id";
-      case EndPoint.MEMBER_ISSUES:
+      case EndPoint.BOOK_MEMBER_ISSUES:
+        return "$package/book_copies_issues/bk_id/$id";
+      case EndPoint.MEMBER_BOOK_ISSUES:
         return "$package/book_copies_issues/m_id/$id";
+      case EndPoint.COPY_ISSUES_COUNT:
+        return "$package/book_copies_issues/copy_id/$id";
+      case EndPoint.BOOK_COPIES:
+        return "$package/book_copies/$id";
+      case EndPoint.BOOK_COPIES_ISSUES:
+        return "book_copies_issues/";
       default:
         return throw "404";
     }

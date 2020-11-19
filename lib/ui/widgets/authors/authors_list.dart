@@ -4,15 +4,23 @@ import 'package:provider/provider.dart';
 import '../../../providers/publishes_provider.dart';
 
 import '../../../utils/helper.dart';
-
 import '../../../utils/enums/page_type_enum.dart';
+
+import '../../../models/author.dart';
 
 import '../common/ratings.dart';
 
 class AuthorsList extends StatelessWidget {
+  final String searchTerm;
+
+  const AuthorsList({Key key, this.searchTerm}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    final authors = Provider.of<PublishesProvider>(context, listen: false).authors;
+    List<Author> authors = Provider.of<PublishesProvider>(context, listen: false).authors;
+    authors = authors.where((author) {
+      return author.firstName.contains(searchTerm) || author.lastName.contains(searchTerm);
+    }).toList();
     return ListView.separated(
       itemCount: authors.length,
       separatorBuilder: (ctx, i) => Divider(

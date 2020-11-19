@@ -8,6 +8,8 @@ import '../../models/author_review.dart';
 import '../../models/book_review.dart';
 import '../../models/member_author_review.dart';
 import '../../models/member_book_review.dart';
+import '../../models/book_copy.dart';
+import '../../models/member_book_issue.dart';
 
 abstract class IDataRepository {
   Stream<List<Book>> booksStream();
@@ -47,4 +49,10 @@ abstract class IDataRepository {
   Stream<List<int>> bookAuthorsStream({@required int id});
 
   Stream<List<int>> authorBooksStream({@required int id});
+
+  Stream<List<BookCopy>> bookCopiesStream({@required int id});
+
+  Stream<List<MemberBookIssue>> bookMemberIssuesStream({@required int id});
+
+  Stream<List<MemberBookIssue>> memberBookIssuesStream({@required int id});
 }

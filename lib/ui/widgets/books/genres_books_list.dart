@@ -12,8 +12,9 @@ import '../common/ratings.dart';
 
 class GenreBooksList extends StatelessWidget {
   final int gId;
+  final String searchTerm;
 
-  const GenreBooksList({Key key, @required this.gId}) : super(key: key);
+  const GenreBooksList({Key key, @required this.gId, this.searchTerm}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,8 @@ class GenreBooksList extends StatelessWidget {
       stream: Provider.of<PublishesProvider>(context, listen: false).getGenreBooks(gId),
       builder: (ctx, snapshot) {
         if (snapshot.hasData) {
-          final genreBooks = snapshot.data;
+          List<Book> genreBooks = snapshot.data;
+          genreBooks = genreBooks.where((book) => book.name.contains(searchTerm)).toList();
           return ListView.separated(
             itemCount: genreBooks.length,
             separatorBuilder: (ctx, i) => Divider(

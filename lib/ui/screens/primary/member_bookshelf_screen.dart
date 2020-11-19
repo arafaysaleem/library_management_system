@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../../providers/issues_provider.dart';
 
 import '../../../utils/helper.dart';
+import '../../../utils/enums/book_issue_status_enum.dart';
 
-import '../../../models/book.dart';
+import '../../../models/member_book_issue.dart';
 
 class MemberBookshelfScreen extends StatelessWidget {
   @override
@@ -12,7 +16,7 @@ class MemberBookshelfScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 20),
+            SizedBox(height: 10),
 
             //Menu Title
             Center(
@@ -25,12 +29,13 @@ class MemberBookshelfScreen extends StatelessWidget {
               ),
             ),
 
-            SizedBox(height: 15),
+            SizedBox(height: 10),
 
             Expanded(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                child: MyBorrowsList(),
+              child: Consumer<IssuesProvider>(
+                builder: (ctx, issuesProvider, _) => MyBorrowsList(
+                  myBookIssues: issuesProvider.memberIssues,
+                ),
               ),
             )
           ],
@@ -41,124 +46,209 @@ class MemberBookshelfScreen extends StatelessWidget {
 }
 
 class MyBorrowsList extends StatelessWidget {
-  final List<Book> myBooks = [
-    Book.initialData(),
-    Book.initialData(),
-    Book.initialData(),
-    Book.initialData(),
-  ];
+  final List<MemberBookIssue> myBookIssues;
 
-  bool isDue(int i) => i % 2 == 0 ? true : false;
+  const MyBorrowsList({Key key, @required this.myBookIssues}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      padding: EdgeInsets.symmetric(horizontal: 10),
       physics: BouncingScrollPhysics(),
-      itemCount: myBooks.length,
+      itemCount: myBookIssues.length,
       itemBuilder: (ctx, i) => BorrowListItem(
-        isDue: isDue(i),
-        bookName: "Harry Potter",
-        authorName: "J.K. Rowling",
-        issueDate: "22-12-2020",
-        date: "22-01-2021",
+        status: myBookIssues[i].status,
+        bookName: myBookIssues[i].bookName,
+        bookImageUrl: myBookIssues[i].bookImageUrl,
+        authorName: myBookIssues[i].authorName,
+        issueDate: Helper.datePresenter(myBookIssues[i].issueDate),
+        date: Helper.datePresenter(
+          myBookIssues[i].status == BookIssueStatus.RETURNED
+              ? myBookIssues[i].returnedDate
+              : myBookIssues[i].dueDate,
+        ),
       ),
     );
   }
 }
 
 class BorrowListItem extends StatelessWidget {
-  final bool isDue;
   final String bookName;
+  final String bookImageUrl;
   final String authorName;
   final String issueDate;
   final String date;
+  final BookIssueStatus status;
 
   const BorrowListItem({
     Key key,
-    @required this.isDue,
     @required this.bookName,
     @required this.authorName,
     @required this.issueDate,
     @required this.date,
+    @required this.bookImageUrl,
+    @required this.status,
   }) : super(key: key);
+
+  Color getIssueStatusColor() {
+    switch (status) {
+      case BookIssueStatus.DUE:
+        return Colors.yellow[700];
+      case BookIssueStatus.OVERDUE:
+        return Colors.red;
+      default:
+        return Colors.green;
+    }
+  }
+
+  String getIssueStatusText(){
+    switch (status) {
+      case BookIssueStatus.DUE:
+        return "PENDING";
+      case BookIssueStatus.OVERDUE:
+        return "OVERDUE";
+      default:
+        return "RETURNED";
+    }
+  }
+
+  IconData getIssueStatusIcon() {
+    switch (status) {
+      case BookIssueStatus.DUE:
+        return Icons.timer;
+      case BookIssueStatus.OVERDUE:
+        return Icons.error_outline;
+      default:
+        return Icons.check;
+    }
+  }
+
+  String getDate() {
+    switch (status) {
+      case BookIssueStatus.DUE:
+        return "Due on: $date";
+      case BookIssueStatus.OVERDUE:
+        return "Was due on: $date";
+      default:
+        return "Returned on: $date";
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 8),
-      height: 185,
+      height: 180,
       child: Stack(
         children: [
           //Borrow details card
           Positioned.fill(
-            top: 40,
+            top: 35,
             child: Card(
               color: Colors.white,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
               ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 15),
-                child: Row(
-                  children: [
-                    SizedBox(width: 120),
-
-                    //Borrow details
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(8, 12, 3, 12),
+                    child: Row(
                       children: [
-                        //Book Title
-                        Text(
-                          bookName,
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black,
-                          ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                        SizedBox(width: 109),
 
-                        //Author name
-                        Text(
-                          "By $authorName",
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.black,
-                          ),
-                        ),
+                        //Borrow details
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              //Book Title
+                              Flexible(
+                                fit: FlexFit.loose,
+                                child: Text(
+                                  bookName,
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black,
+                                  ),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
 
-                        SizedBox(height: 10),
+                              SizedBox(height: 3),
 
-                        //Issue date
-                        Text(
-                          "Issued on: $issueDate",
-                          style: TextStyle(
-                            color: Colors.black54,
-                          ),
-                        ),
+                              //Author name
+                              Text(
+                                "By $authorName",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                ),
+                              ),
 
-                        SizedBox(height: 3),
+                              SizedBox(height: 10),
 
-                        //If returned, then change to return date
-                        Text(
-                          isDue ? "Due on: $date" : "Returned on: $date",
-                          style: TextStyle(
-                            color: Colors.black54,
+                              //Issue date
+                              Text(
+                                "Issued on: $issueDate",
+                                style: TextStyle(
+                                  color: Colors.black54,
+                                ),
+                              ),
+
+                              SizedBox(height: 3),
+
+                              //If returned, then change to return date
+                              Text(
+                                getDate(),
+                                style: TextStyle(
+                                  color: Colors.black54,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
                     ),
-                  ],
-                ),
+                  ),
+
+                  //Status
+                  Container(
+                    height: double.infinity,
+                    width: 32,
+                    decoration: BoxDecoration(
+                      color: getIssueStatusColor(),
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(20),
+                        bottomRight: Radius.circular(20),
+                      ),
+                    ),
+                    child: Center(
+                      child: RotatedBox(
+                        quarterTurns: 3,
+                        child: Text(
+                          getIssueStatusText(),
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                            letterSpacing: 1.5
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
 
           //Book Image
           Positioned(
-            left: 15,
+            left: 13,
             child: Align(
               alignment: Alignment.topLeft,
               child: SizedBox(
@@ -170,7 +260,11 @@ class BorrowListItem extends StatelessWidget {
                     borderRadius: BorderRadius.circular(16),
                   ),
                   color: Colors.black,
-                  //child: Image.network(myBooks[i].imageUrl),
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  child: Image.network(
+                    bookImageUrl,
+                    fit: BoxFit.fill,
+                  ),
                 ),
               ),
             ),
@@ -179,19 +273,19 @@ class BorrowListItem extends StatelessWidget {
           //Borrow status
           Positioned(
             right: 20,
-            top: 20,
+            top: 16,
             child: Align(
               alignment: Alignment.topRight,
               child: Container(
                 decoration: BoxDecoration(
-                  color: isDue ? Colors.red : Colors.green,
+                  color: Colors.black,
                   shape: BoxShape.circle,
                 ),
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(7),
                 child: Icon(
-                  isDue ? Icons.timer : Icons.check,
-                  size: 26,
-                  color: Colors.white,
+                  getIssueStatusIcon(),
+                  size: 22,
+                  color: getIssueStatusColor(),
                 ),
               ),
             ),

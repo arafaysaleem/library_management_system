@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 import '../utils/helper.dart';
-
+//TODO: fix jsons
 class MemberAuthorReview {
   final String _text;
   final int _rating;
