@@ -108,6 +108,9 @@ $RECYCLE.BIN/
 ### AndroidStudio ###
 # Covers files to be ignored for android development using Android Studio.
 
+### VS Code ###
+.vscode
+
 # Built application files
 *.apk
 *.ap_
