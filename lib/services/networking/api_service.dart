@@ -14,12 +14,6 @@ class ApiService {
   /// Singleton instance of a ApiService class.
   static final instance = ApiService._();
 
-  Future<List<dynamic>> getEndPointData(EndPoint endPoint, {String id = ''}) async {
-    final String url = _baseUrl + endPoint.getPath(id: id);
-    final data = await _httpService.get(url);
-    return data["items"];
-  }
-
   String getUrl(EndPoint endPoint, String id) => _baseUrl + endPoint.getPath(id: id);
 
   Stream<List<T>> collectionStream<T>({

@@ -20,7 +20,7 @@ import '../../models/member_book_issue.dart';
 class DataRepository implements IDataRepository {
   DataRepository._();
 
-  /// Singleton instance of a ApiService class.
+  /// Singleton instance of a DataRepository class.
   static final instance = DataRepository._();
 
   final ApiService _apiService = ApiService.instance;
