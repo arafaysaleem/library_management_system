@@ -1,0 +1,7 @@
+G_ID,G_NAME
+2,Fantasy
+41,Non-Fiction
+23,Drama
+3,Horror
+1,Entrepreneurship
+22,Fiction

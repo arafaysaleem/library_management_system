@@ -1,0 +1,5 @@
+A_ID,A_FIRST_NAME,A_LAST_NAME,A_AGE,A_COUNTRY,A_RATING,A_IMAGE_URL
+64,Stephen,King,73,USA,4,https://images.gr-assets.com/authors/1362814142p8/3389.jpg
+61,Elif,Shaikh,49,FRA,5,https://i.pinimg.com/originals/c7/23/60/c72360ea2d9d658cdbcf6e2ec3ad0d4a.jpg
+62,Joanne,Rowling,55,GBR,5,https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTE1ODA0OTcxMzcxNTYyNTA5/jk-rowling-40998-1-402.jpg
+63,Dale,Carnegie,67,USA,4,https://upload.wikimedia.org/wikipedia/en/0/0c/Dale_Carnegie.jpg
