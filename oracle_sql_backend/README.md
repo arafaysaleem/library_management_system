@@ -1,4 +1,4 @@
-# Library Management System #- ORACLE SQL BACKEND
+# Library Management System - ORACLE SQL BACKEND
 The backend code was created on **Oracle Apex**. You can not use any other backend for this project using these files as they are only suited for oracle sql. However, you can write your own REST API if you don't want to use the ORDS API.
 
 ## :scroll: Options
@@ -17,7 +17,7 @@ The backend code was created on **Oracle Apex**. You can not use any other backe
 
 ## :wrench: Setup
 
-###Apex(Online & Client)
+### Apex(Online & Client)
 
 1. Upload and run the DDL script to setup the tables, triggers, index, constraints and sequences.
 2. Upload the table data files using the Data Workshop to fill the tables.
@@ -28,7 +28,7 @@ The backend code was created on **Oracle Apex**. You can not use any other backe
 7. Once everything is up and ready you'll have to check the URLs
 * Since I used a different account and schema name the URL might change for your API. Therefore, you can just visit any table's API link and compare the base url with the one that is hard coded inside the app.
 
-###SQL Developer
+### SQL Developer
 1. Upload and run the DDL script to setup the tables, triggers, index, constraints and sequences.
 2. Upload the table data files using the Data Workshop to fill the tables.
 3. For setting up and enabling ORDS refer to their [documentation](https://www.oracle.com/webfolder/technetwork/tutorials/obe/db/ords/r30/Install_Administer_ORDS/Install_Administer_ORDS.html "Setup ORDS")
