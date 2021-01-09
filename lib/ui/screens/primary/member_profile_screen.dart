@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:library_management_system/models/genre.dart';
-import 'package:library_management_system/providers/genres_provider.dart';
-import 'package:library_management_system/ui/widgets/common/genre_chips.dart';
 import 'package:provider/provider.dart';
 
 import '../../../providers/members_provider.dart';
+import '../../../providers/genres_provider.dart';
 
 import '../../../utils/helper.dart';
 
 import '../../widgets/members/member_actions.dart';
+
+import '../../widgets/common/genre_chips.dart';
 
 class MemberProfileScreen extends StatelessWidget {
   @override
