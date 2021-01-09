@@ -33,6 +33,17 @@ class HttpService {
     return decodedResponseJson;
   }
 
+  Future<Map<String, dynamic>> delete(String url) async {
+    Map<String, dynamic> decodedResponseJson;
+    try {
+      final response = await http.delete(url);
+      decodedResponseJson = _decodeResponse(response, url);
+    } on SocketException {
+      throw FetchDataException('No Internet connection');
+    }
+    return decodedResponseJson;
+  }
+
   Future<Map<String, dynamic>> put(String url, Map<String, dynamic> body) async {
     Map<String, dynamic> decodedResponseJson;
     try {

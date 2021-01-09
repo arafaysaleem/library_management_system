@@ -90,4 +90,17 @@ class ApiService {
 
     return builder(dataMap);
   }
+
+  Future<T> deleteData<T>({
+    @required EndPoint endPoint,
+    String id = '',
+    @required T Function(Map<String, dynamic> response) builder,
+  }) async {
+    final String url = getUrl(endPoint, id);
+
+    //Entire map of response
+    final dataMap = await _httpService.delete(url);
+
+    return builder(dataMap);
+  }
 }

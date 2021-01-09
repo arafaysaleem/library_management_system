@@ -9,6 +9,7 @@ enum EndPoint {
   GENRE_BOOKS,
   GENRE_MEMBERS,
   MEMBER_PREFERENCES,
+  MEMBER_PREFS_TABLE,
   AUTHOR_GENRES,
   BOOK_GENRES,
   AUTHOR_REVIEWS,
@@ -80,6 +81,8 @@ extension GetEndPointPath on EndPoint {
         return "$package/book_copies/$id";
       case EndPoint.BOOK_COPIES_ISSUES:
         return "book_copies_issues/";
+      case EndPoint.MEMBER_PREFS_TABLE:
+        return "member_preferences/$id";
       default:
         return throw "404";
     }

@@ -1,6 +1,7 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
+import 'package:library_management_system/models/genre.dart';
 
 import '../utils/helper.dart';
 
@@ -17,9 +18,13 @@ class MembersProvider with ChangeNotifier {
 
   final Map<int, Member> _members = Map();
 
+  List<Genre> _memberPreferences = [];
+  List<Genre> _tempPreferences = [];
+
   UnmodifiableMapView<int, Member> get membersMap => UnmodifiableMapView(_members);
 
   UnmodifiableListView<Member> get members => UnmodifiableListView(_members.values);
+  UnmodifiableListView<Genre> get memberPreferences => UnmodifiableListView(_memberPreferences);
 
   Member get currentMember => _members[_mId];
 
@@ -89,6 +94,39 @@ class MembersProvider with ChangeNotifier {
     _loggedIn = true;
     notifyListeners();
   }
+
+  void toggleGenre(bool inActive, Genre genre) {
+    inActive ? _tempPreferences.add(genre) : _tempPreferences.remove(genre);
+  }
+
+  setMemberPreferences(List<Genre> prefs) {
+    _memberPreferences = [...prefs];
+    _tempPreferences = [...prefs];
+  }
+
+  Future<void> changeMemberPreferences() async {
+    _memberPreferences.forEach((genre) async {
+      //if a preference has been removed, delete it
+      if(!_tempPreferences.contains(genre)){
+        await _dataRepository.deleteMemberPreferences(id: "$_mId,${genre.id}");
+      }
+    });
+    _tempPreferences.forEach((genre) async {
+      if(!_memberPreferences.contains(genre)) {
+        Map<String,dynamic> data = {
+          "m_id": currentMId,
+          "g_id": genre.id,
+        };
+        await _dataRepository.changeMemberPreferences(data: data);
+      }
+    });
+    _tempPreferences.clear();
+    notifyListeners();
+  }
+
+  bool isPreference(Genre genre) => _tempPreferences.contains(genre);
+
+  resetTempPreferences() => _tempPreferences.clear();
 
   Future<bool> changeProfileData({email,password,bio,int age}) async {
     Member temp = currentMember.copyWith(email: email, password: password, bio: bio, age: age);

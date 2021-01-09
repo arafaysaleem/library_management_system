@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:library_management_system/utils/enums/page_type_enum.dart';
 import 'package:provider/provider.dart';
 
 import '../../../providers/members_provider.dart';
@@ -51,7 +52,8 @@ class _MemberActionsState extends State<MemberActions> {
           color: Colors.green,
           onPressed: () async {
             final memberProvider = Provider.of<MembersProvider>(context, listen: false);
-            bool updated = await memberProvider.changeProfileData(email: _email, password: _password, bio: _bio, age: _age);
+            bool updated = await memberProvider.changeProfileData(
+                email: _email, password: _password, bio: _bio, age: _age);
             setState(() {
               showDialog(
                 context: context,
@@ -280,6 +282,15 @@ class _MemberActionsState extends State<MemberActions> {
               });
             },
             action: "Change age",
+            actionColor: Colors.black,
+          ),
+          Divider(height: 10, thickness: 1.3, color: Colors.grey[300]),
+          buildOptionButton(
+            iconColor: Theme.of(context).primaryColor,
+            onTap: () {
+              Helper.navigateToPage(context: context, page: PageType.MEMBERPREFS);
+            },
+            action: "Change preferences",
             actionColor: Colors.black,
           ),
           SizedBox(height: 5),

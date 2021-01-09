@@ -64,4 +64,15 @@ class GenresProvider with ChangeNotifier {
     //_dataRepository.bookGenresStream(id: bkId).forEach((gId) => bookGenres.add(_genres[gId]));
     return authorGenres;
   }
+
+  Future<List<Genre>> getMemberGenres(int mId) async {
+    List<Genre> memberGenres=[];
+    //Future based
+    await for (List<int> genreIds in _dataRepository.memberGenresStream(id: mId)) {
+      genreIds.forEach((gId) => memberGenres.add(_genres[gId]));
+    }
+    //Stream based code
+    //_dataRepository.bookGenresStream(id: bkId).forEach((gId) => bookGenres.add(_genres[gId]));
+    return memberGenres;
+  }
 }

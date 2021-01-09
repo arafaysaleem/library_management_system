@@ -7,12 +7,13 @@ import '../../ui/screens/primary/book_collections_screen.dart';
 import '../../ui/screens/primary/genre_books_screen.dart';
 import '../../ui/screens/primary/authors_gallery_screen.dart';
 import '../../ui/screens/primary/member_profile_screen.dart';
+import '../../ui/screens/member_genres_screen.dart';
 import '../../ui/screens/primary/member_bookshelf_screen.dart';
 import '../../ui/screens/secondary/author_details_screen.dart';
 import '../../ui/screens/secondary/author_books_screen.dart';
 import '../../ui/screens/secondary/book_details_screen.dart';
 
-enum PageType { HOME, COLLECTIONS, GENRES, AUTHOR, BOOK, AUTHORBOOKS, BOOKSHELF, AUTHORGALLERY, PROFILE, LOGIN }
+enum PageType { HOME, COLLECTIONS, GENRES, AUTHOR, BOOK, AUTHORBOOKS, BOOKSHELF, AUTHORGALLERY, MEMBERPREFS, PROFILE, LOGIN }
 
 extension ActivePage on PageType {
   String get name => describeEnum(this);
@@ -27,6 +28,8 @@ extension ActivePage on PageType {
         return GenreBooksScreen();
       case PageType.AUTHOR:
         return AuthorDetailsScreen();
+      case PageType.MEMBERPREFS:
+        return MemberGenresScreen();
       case PageType.AUTHORGALLERY:
         return AuthorsGalleryScreen();
       case PageType.AUTHORBOOKS:

@@ -169,6 +169,7 @@ class MainApp extends StatelessWidget {
           PageType.COLLECTIONS.name: (_) => PageType.COLLECTIONS.getRoute(),
           PageType.GENRES.name: (_) => PageType.GENRES.getRoute(),
           PageType.AUTHOR.name: (_) => PageType.AUTHOR.getRoute(),
+          PageType.MEMBERPREFS.name: (_) => PageType.MEMBERPREFS.getRoute(),
           PageType.AUTHORGALLERY.name: (_) => PageType.AUTHORGALLERY.getRoute(),
           PageType.AUTHORBOOKS.name: (_) => PageType.AUTHORBOOKS.getRoute(),
           PageType.BOOK.name: (_) => PageType.BOOK.getRoute(),

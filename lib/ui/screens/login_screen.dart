@@ -181,7 +181,6 @@ class _SignInWidgetState extends State<SignInWidget> {
   }
 }
 
-// ignore: must_be_immutable
 class SignUpWidget extends StatefulWidget {
   SignUpWidget({
     Key key,

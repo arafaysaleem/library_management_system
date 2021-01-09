@@ -253,4 +253,20 @@ class DataRepository implements IDataRepository {
       builder: (response) => response["m_id"],
     );
   }
+
+  Future<int> changeMemberPreferences({@required Map<String, dynamic> data}) async {
+    return await _apiService.setData(
+      endPoint: EndPoint.MEMBER_PREFS_TABLE,
+      data: data,
+      builder: (response) => response["m_id"],
+    );
+  }
+
+  Future<void> deleteMemberPreferences({@required String id}) async {
+    return await _apiService.deleteData(
+      endPoint: EndPoint.MEMBER_PREFS_TABLE,
+      id: id,
+      builder: (response) => response["rowsDeleted"],
+    );
+  }
 }
